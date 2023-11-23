@@ -3,11 +3,14 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
+
 import Layout from "./Pages/Layout";
 import ErrorPage from "./Pages/ErrorPage";
 import EmployeeList from "./Pages/EmployeeList";
 import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
+import Superheroes from "./Pages/Superheroes";
+
 
 import "./index.css";
 import TableTest from "./Pages/TableTest";
@@ -38,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: "/form-test",
         element: <FormTest />,
+      },
+      {
+        path: "/hello",
+        element: <h1>This is the Hello - Route</h1>,
+      },
+      {
+        path: "/superheroes",
+        element: <Superheroes />,
       },
     ],
   },

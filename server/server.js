@@ -18,6 +18,36 @@ app.get("/api/employees/", async (req, res) => {
   return res.json(employees);
 });
 
+app.get("/api/employees/superheroes", async (req, res, next) => {
+  //  const employees = await EmployeeModel.find().sort({ created: "desc" });
+  //  return res.json(employees);
+
+  try {
+    const superheroes = await EmployeeModel.find({ position: "Superhero" });
+    console.log(superheroes);
+    return res.json(superheroes);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/levels/:level", async (req, res) => {
+  const level = req.params.level
+
+  const levels = await EmployeeModel.find({
+    level: { $regex: "^" + level, $options: "i" },
+  });
+  console.log(levels)
+  res.status(200).json(levels);
+
+  if (!levels) {
+    res.status(404).json({ error: "Monster not found" });
+  }
+});
+
+
+
 app.get("/api/employees/:id", async (req, res) => {
   const employee = await EmployeeModel.findById(req.params.id);
   return res.json(employee);

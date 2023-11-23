@@ -7,7 +7,9 @@ const fetchEmployees = () => {
 };
 
 const deleteEmployee = (id) => {
-  return fetch(`/api/employees/${id}`, { method: "DELETE" }).then((res) =>
+  return fetch(`/api/employees/${id}`, { 
+    method: "DELETE" })
+    .then((res) =>
     res.json()
   );
 };
