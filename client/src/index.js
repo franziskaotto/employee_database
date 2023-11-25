@@ -43,6 +43,7 @@ const router = createBrowserRouter([
         element: <FormTest />,
       },
       {
+
         path: "/hello",
         element: <h1>This is the Hello - Route</h1>,
       },
@@ -50,6 +51,8 @@ const router = createBrowserRouter([
         path: "/superheroes",
         element: <Superheroes />,
       },
+      {
+      }
     ],
   },
 ]);

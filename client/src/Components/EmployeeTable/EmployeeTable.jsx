@@ -1,37 +1,67 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
+//import FetchLevels from "../FetchLevels";
 
-const serverPath = "http://localhost:3000/api/levels";
+const serverPath = "http://localhost:3000/api";
 
-const getLevelData = async (searchedLevel, setLevelData) => {
+const getLevelData = async (searchedLevel, setEmployeeList) => {
   try {
-    const response = await fetch(`${serverPath}/${searchedLevel}`);
-    console.log(response);
-
+    const response = await fetch(`${serverPath}/levels/${searchedLevel}`);
+    console.log(searchedLevel);
     const data = await response.json();
-    console.log("GET DATA");
     console.log(data);
 
-    setLevelData(data);
+    setEmployeeList(data);
   } catch (err) {
     console.error("Error fetching levels:", err);
   }
 };
 
+const getPositionData = async (searchedPosition, setEmployeeList) => {
+  try {
+    console.log(searchedPosition);
+    const response = await fetch(`${serverPath}/positions/${searchedPosition}`);
+
+    const data = await response.json();
+    console.log(data);
+    setEmployeeList(data);
+  } catch (error) {
+    console.log("error fetching Position Data", error);
+  }
+};
+
+//refactor: use one route with query, use one onclick handler function
+
 const EmployeeTable = ({ employees, onDelete }) => {
-  const [levelData, setLevelData] = useState();
+  const [toggle, setToggle] = useState(false);
 
+  const [employeeList, setEmployeeList] = useState(employees);
   const handleSearchLevel = (e) => {
-    e.preventDefault();
-
-    getLevelData(e.target.value, setLevelData);
+    getLevelData(e.target.value, setEmployeeList);
   };
+
+  const handleSearchPostion = (e) => {
+    console.log(e);
+
+    getPositionData(e.target.value, setEmployeeList);
+  };
+
+  const sortByABC = () => {
+
+  }
 
   return (
     <div className="EmployeeTable">
       <table>
         <thead>
+          <div>
+            <select>
+              <option>Name</option>
+              <option>Level</option>
+              <option>Position</option>
+            </select>
+          </div>
           <tr>
             <th>Name</th>
             <th>
@@ -40,17 +70,17 @@ const EmployeeTable = ({ employees, onDelete }) => {
                 type="text"
                 placeholder="search"
                 onChange={handleSearchLevel}
-
-                //onChange={(e) => getLevlData((e.target.value), setLevelData)}
               />
+              <button>ABC^</button>
             </th>
             <th>
               Position
               <input
-                placeholder="search"
-                // onChange={searchPosition}
                 type="text"
+                placeholder="search"
+                onChange={handleSearchPostion}
               />
+              <button onClick={sortByABC}>ABC^</button>
             </th>
             <th />
           </tr>
@@ -58,7 +88,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
 
         <tbody>
           <>
-            {employees.map((employee) => (
+            {employeeList?.map((employee) => (
               <tr key={employee._id}>
                 <td>{employee.name}</td>
                 <td>{employee.level}</td>

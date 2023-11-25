@@ -42,9 +42,21 @@ app.get("/api/levels/:level", async (req, res) => {
   res.status(200).json(levels);
 
   if (!levels) {
-    res.status(404).json({ error: "Monster not found" });
+    res.status(404).json({ error: "Level not found" });
   }
 });
+
+app.get("/api/positions/:position", async (req, res) => {
+  const position = req.params.position;
+  const positions = await EmployeeModel.find({
+    position: { $regex: "^" + position, $options: "i" }
+  })
+  res.status(200).json(positions)
+
+  if(!positions) {
+    res.status[404].json({ error:"Position not found" })
+  }
+})
 
 
 

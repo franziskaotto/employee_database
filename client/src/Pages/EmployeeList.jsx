@@ -18,6 +18,7 @@ const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
 
+
   const handleDelete = (id) => {
     deleteEmployee(id);
 
@@ -38,7 +39,7 @@ const EmployeeList = () => {
     return <Loading />;
   }
 
-  return <EmployeeTable employees={employees} onDelete={handleDelete} />;
+  return <EmployeeTable employees={employees} onDelete={handleDelete} setEmployees={setEmployees}/>;
 };
 
 export default EmployeeList;
