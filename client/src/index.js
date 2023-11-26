@@ -10,6 +10,8 @@ import EmployeeList from "./Pages/EmployeeList";
 import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
 import Superheroes from "./Pages/Superheroes";
+import EquipmentCreator from "./Pages/EquipmentCreator";
+import EquipmentList from "./Pages/EquipmentList";
 
 
 import "./index.css";
@@ -43,7 +45,6 @@ const router = createBrowserRouter([
         element: <FormTest />,
       },
       {
-
         path: "/hello",
         element: <h1>This is the Hello - Route</h1>,
       },
@@ -52,7 +53,13 @@ const router = createBrowserRouter([
         element: <Superheroes />,
       },
       {
-      }
+        path: "/equipment",
+        element: <EquipmentList />
+      },
+      {
+        path: "/createEquipment",
+        element: <EquipmentCreator />,
+      },
     ],
   },
 ]);

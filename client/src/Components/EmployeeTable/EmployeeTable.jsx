@@ -5,9 +5,12 @@ import "./EmployeeTable.css";
 
 const serverPath = "http://localhost:3000/api";
 
-const getLevelData = async (searchedLevel, setEmployeeList) => {
+const getEmpolyeesLevel = async (searchedLevel, setEmployeeList) => {
   try {
-    const response = await fetch(`${serverPath}/levels/${searchedLevel}`);
+    const response = await fetch(
+      `${serverPath}/search?level=${searchedLevel}`
+    );
+    console.log(response);
     console.log(searchedLevel);
     const data = await response.json();
     console.log(data);
@@ -17,51 +20,60 @@ const getLevelData = async (searchedLevel, setEmployeeList) => {
     console.error("Error fetching levels:", err);
   }
 };
-
-const getPositionData = async (searchedPosition, setEmployeeList) => {
+const getEmpolyeesPosition = async (searchedPosition, setEmployeeList) => {
   try {
+    const response = await fetch(
+      `${serverPath}/search?position=${searchedPosition}`
+    );
+    console.log(response); 
     console.log(searchedPosition);
-    const response = await fetch(`${serverPath}/positions/${searchedPosition}`);
-
     const data = await response.json();
     console.log(data);
+
     setEmployeeList(data);
-  } catch (error) {
-    console.log("error fetching Position Data", error);
+  } catch (err) {
+    console.error("Error fetching levels:", err);
   }
 };
+
 
 //refactor: use one route with query, use one onclick handler function
 
 const EmployeeTable = ({ employees, onDelete }) => {
-  const [toggle, setToggle] = useState(false);
 
   const [employeeList, setEmployeeList] = useState(employees);
+  //const [searchedLevel, setSearchedLevel] = useState('');
+  //const [searchedPosition, setSearchedPosition]= useState('');
+
+  
   const handleSearchLevel = (e) => {
-    getLevelData(e.target.value, setEmployeeList);
+    //setSearchedLevel(e.target.value);
+    getEmpolyeesLevel(e.target.value, setEmployeeList);
+  };
+  
+  const handleSearchPosition = (e) => {
+    //setSearchedPosition(e.target.value);
+
+    getEmpolyeesPosition(e.target.value, setEmployeeList);
   };
 
-  const handleSearchPostion = (e) => {
-    console.log(e);
+  // useEffect(()=> {
+  //   getEmpolyeesData();
+  // }, [searchedLevel, searchedPosition]);
 
-    getPositionData(e.target.value, setEmployeeList);
-  };
-
-  const sortByABC = () => {
-
-  }
-
+  
   return (
     <div className="EmployeeTable">
       <table>
         <thead>
-          <div>
+          <>
             <select>
               <option>Name</option>
               <option>Level</option>
               <option>Position</option>
             </select>
-          </div>
+          </>
+
           <tr>
             <th>Name</th>
             <th>
@@ -78,10 +90,12 @@ const EmployeeTable = ({ employees, onDelete }) => {
               <input
                 type="text"
                 placeholder="search"
-                onChange={handleSearchPostion}
+                onChange={handleSearchPosition}
               />
-              <button onClick={sortByABC}>ABC^</button>
+              {/* <button onClick={sortByABC}>ABC^</button> */}
             </th>
+            <th>Present?</th>
+
             <th />
           </tr>
         </thead>
@@ -93,6 +107,9 @@ const EmployeeTable = ({ employees, onDelete }) => {
                 <td>{employee.name}</td>
                 <td>{employee.level}</td>
                 <td>{employee.position}</td>
+                <td>
+                  <input type="checkbox" id="option-1" />
+                </td>
                 <td>
                   <Link to={`/update/${employee._id}`}>
                     <button type="button">Update</button>
@@ -111,3 +128,18 @@ const EmployeeTable = ({ employees, onDelete }) => {
 };
 
 export default EmployeeTable;
+
+
+
+// const getPositionData = async (searchedPosition, setEmployeeList) => {
+//   try {
+//     console.log(searchedPosition);
+//     const response = await fetch(`${serverPath}/positions/${searchedPosition}`);
+
+//     const data = await response.json();
+//     console.log(data);
+//     setEmployeeList(data);
+//   } catch (error) {
+//     console.log("error fetching Position Data", error);
+//   }
+// };

@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
+const EquipmentModel = require("./db/equipment.model");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -32,31 +33,52 @@ app.get("/api/employees/superheroes", async (req, res, next) => {
   }
 });
 
-app.get("/api/levels/:level", async (req, res) => {
-  const level = req.params.level
 
-  const levels = await EmployeeModel.find({
-    level: { $regex: "^" + level, $options: "i" },
-  });
-  console.log(levels)
-  res.status(200).json(levels);
+app.get('/api/search', async (req, res) => {
+  try {
+    const queryObj = { ...req.query };
+    const excludedFields = ['name', 'created']
+    excludedFields.forEach(el => delete queryObj[el]);
+    //const query = EmployeeModel.find({ name: { $regex: queryObj, $options: "i" } });
+    const query = EmployeeModel.find(queryObj);
+    const data = await query
 
-  if (!levels) {
-    res.status(404).json({ error: "Level not found" });
-  }
-});
+    res.status(200).json(data)
 
-app.get("/api/positions/:position", async (req, res) => {
-  const position = req.params.position;
-  const positions = await EmployeeModel.find({
-    position: { $regex: "^" + position, $options: "i" }
-  })
-  res.status(200).json(positions)
-
-  if(!positions) {
-    res.status[404].json({ error:"Position not found" })
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err
+    })
   }
 })
+
+
+// app.get("/api/levels/:level", async (req, res) => {
+//   const level = req.params.level
+
+//   const levels = await EmployeeModel.find({
+//     level: { $regex: "^" + level, $options: "i" },
+//   });
+//   console.log(levels)
+//   res.status(200).json(levels);
+
+//   if (!levels) {
+//     res.status(404).json({ error: "Level not found" });
+//   }
+// });
+
+// app.get("/api/positions/:position", async (req, res) => {
+//   const position = req.params.position;
+//   const positions = await EmployeeModel.find({
+//     position: { $regex: "^" + position, $options: "i" }
+//   })
+//   res.status(200).json(positions)
+
+//   if(!positions) {
+//     res.status[404].json({ error:"Position not found" })
+//   }
+// })
 
 
 
@@ -98,6 +120,29 @@ app.delete("/api/employees/:id", async (req, res, next) => {
     return next(err);
   }
 });
+
+
+
+app.get("/api/equipment", async (req, res) => {
+  try {
+    const equipment = await EquipmentModel.find()
+    return res.json(equipment);
+    
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+app.post("/api/equipment", async (req, res) => {
+  const equipment = req.body;
+
+  try {
+    const data = await EquipmentModel.create(equipment);
+    return res.json(data);
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 const main = async () => {
   await mongoose.connect(MONGO_URL);
