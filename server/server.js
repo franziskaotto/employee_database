@@ -51,6 +51,7 @@ app.get("/api/employees/superheroes", async (req, res, next) => {
 app.get("/api/search", async (req, res) => {
   try {
     const queryObj = { ...req.query };
+    console.log(queryObj)
     const excludedFields = ["name", "created"];
     excludedFields.forEach((el) => delete queryObj[el]);
 
@@ -58,6 +59,11 @@ app.get("/api/search", async (req, res) => {
        queryObj[key] = { $regex: `^${queryObj[key]}`, $options: "i" };
      }
 
+     //TODO: einfache if abfrage im queryObject, zb if key = asc => mach nach asc, if = desc => mach nach dec
+
+
+
+     
     //const query = EmployeeModel.find({ level : { $regex: queryObj, $options: "i" } });
     const query = EmployeeModel.find(queryObj);
     const data = await query;
@@ -132,7 +138,9 @@ app.get("/api/equipment/:id", async (req, res) => {
   }
 });
 
-app.patch("/api/equipment/update/:id", async (res, req) => {
+//TODO: Update wegeben
+
+app.patch("/api/equipment/update/:id", async (req, res) => {
   console.log("patch over try");
 
   try {
@@ -141,14 +149,13 @@ app.patch("/api/equipment/update/:id", async (res, req) => {
       req.body,
       { new: true }
     );
-
-    res.json({ success: true, data: updatedEquipment });
-
+    
     if (!updatedEquipment) {
       return res.status(404).json({ success: false, message: "Equipment not found" });
-        
-        
+    } else {
+      res.json({ success: true, data: updatedEquipment });
     }
+
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

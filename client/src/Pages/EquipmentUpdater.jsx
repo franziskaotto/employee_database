@@ -22,7 +22,7 @@ const updateEquipment = (equipment) => {
 
 const fetchEquipment = (id) => {
   console.log(id)
-  return fetch(`/api/equipment/update/${id}`).then((res) => res.json());
+  return fetch(`/api/equipment/${id}`).then((res) => res.json());
 };
 
 const EquipmentUpdater = () => {
