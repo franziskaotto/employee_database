@@ -1,44 +1,11 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Equipment = () => {
-  const [name, setName] = useState("")
-  const [type, setType] = useState("")
-  const [amount, setAmount] = useState("")
-
-  const handleSubmit = () => {}
-
+const EquipmentTable = ( {equipment, onDelete}) => {
 
   return (
     <div className="EmployeeTable">
       <table>
-        {/* <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              //value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          <label>
-            Type:
-            <input
-              type="text"
-              //value={type}
-              onChange={(e) => setType(e.target.value)}
-            />
-          </label>
-          <label>
-            Amount:
-            <input
-              type="text"
-              //value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-          </label>
-          <button type="submit">Add Equipment</button>
-        </form> */}
-
         <thead>
           <tr>
             <th>Name</th>
@@ -48,30 +15,30 @@ const Equipment = () => {
         </thead>
 
         <tbody>
-          {/* <>
-            {employeeList?.map((employee) => (
-              <tr key={employee._id}>
-                <td>{employee.name}</td>
-                <td>{employee.level}</td>
-                <td>{employee.position}</td>
+          <>
+            {equipment?.map((equipment) => (
+              <tr key={equipment._id}>
+                <td>{equipment.name}</td>
+                <td>{equipment.type}</td>
+                <td>{equipment.amount}</td>
                 <td>
                   <input type="checkbox" id="option-1" />
                 </td>
                 <td>
-                  <Link to={`/update/${employee._id}`}>
+                  <Link to={`/equipment/update/${equipment._id}`}>
                     <button type="button">Update</button>
                   </Link>
-                  <button type="button" onClick={() => onDelete(employee._id)}>
+                  <button type="button" onClick={() => onDelete(equipment._id)}>
                     Delete
                   </button>
                 </td>
               </tr>
             ))}
-          </> */}
+          </>
         </tbody>
       </table>
     </div>
   );
 };
 
-export default Equipment;
+export default EquipmentTable;

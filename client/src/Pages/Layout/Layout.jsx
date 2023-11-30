@@ -4,10 +4,10 @@ import "./Layout.css";
 import { useState } from "react";
 
 const Layout = () => {
-  const [click, setClick] = useState(false)
+  const [click, setClick] = useState("employee")
 
   const handleClick = () => {
-    setClick(!click)
+    setClick("equipment")
     console.log(click)
 
   }
@@ -18,7 +18,8 @@ const Layout = () => {
       <nav>
         <ul>
           <li className="grow">
-            <Link to="/">Employees</Link>
+            <Link to="/" onClick={() => setClick("employee")}>Employees</Link>
+
           </li>
           <li>
             <Link to="/equipment">
@@ -27,7 +28,7 @@ const Layout = () => {
               </button>
             </Link>
           </li>
-          {click ? (
+          {click === "employee" ? (
             <li>
               <Link to="/create">
                 <button type="button">Create Employee</button>
@@ -36,7 +37,7 @@ const Layout = () => {
           ) : (
             <li>
               <Link to="/createEquipment">
-                <button type="button">Create Equiptment</button>
+                <button type="button">Create Equipment</button>
               </Link>
             </li>
           )}

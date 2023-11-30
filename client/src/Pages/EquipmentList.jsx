@@ -3,21 +3,22 @@ import Loading from "../Components/Loading";
 import EquipmentTable from "../Components/EquipmentTable";
 
 const fetchEquipment = () => {
-  return fetch("/api/equipment").then((res) => res.json());
+  return fetch("/api/equipment")
+  .then((res) => res.json());
 };
 
-// const deleteEquipment = (id) => {
-//   return fetch(`/api/equipment/${id}`, {
-//     method: "DELETE",
-//   }).then((res) => res.json());
-// };
+const deleteEquipment = (id) => {
+  return fetch(`/api/equipment/${id}`, {
+    method: "DELETE",
+  }).then((res) => res.json());
+};
 
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [equipment, setEquipment] = useState(null);
 
   const handleDelete = (id) => {
-    //deleteEquipment(id);
+    deleteEquipment(id);
 
     setEquipment((equipment) => {
       return equipment.filter((equipment) => equipment._id !== id);

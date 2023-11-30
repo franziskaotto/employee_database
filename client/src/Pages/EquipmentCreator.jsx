@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EquipmentCreator from "../Components/EquipmentForm/EquipmentForm";
+import EquipmentForm from "../Components/EquipmentForm";
 
 const createEquipment = (equipment) => {
   return fetch("/api/equipment", {
@@ -19,18 +19,17 @@ const EquipmentCreators = () => {
   const handleCreateEquipment = (equipment) => {
     setLoading(true);
 
-    createEquipment(equipment).then(() => {
+    createEquipment(equipment)
+    .then(() => {
       setLoading(false);
-      navigate("/");
+      navigate("/equipment");
     });
   };
 
-
-  //TODO: hier die dinge übergeben
   return (
-    <EquipmentCreator
-      onCancel={() => navigate("/")}
-      disabled={loading}
+    <EquipmentForm
+      onCancel={() => navigate("/equipment")}
+      loading={loading}
       onSave={handleCreateEquipment}
     />
   );

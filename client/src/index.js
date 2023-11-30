@@ -12,6 +12,8 @@ import EmployeeUpdater from "./Pages/EmployeeUpdater";
 import Superheroes from "./Pages/Superheroes";
 import EquipmentCreator from "./Pages/EquipmentCreator";
 import EquipmentList from "./Pages/EquipmentList";
+import EquipmentUpdater from "./Pages/EquipmentUpdater";
+import EmployeeSortABC from "./Pages/EmployeeSortABC";
 
 
 import "./index.css";
@@ -54,11 +56,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/equipment",
-        element: <EquipmentList />
+        element: <EquipmentList />,
       },
       {
         path: "/createEquipment",
         element: <EquipmentCreator />,
+      },
+      {
+        path: "/equipment/update/:id",
+        element: <EquipmentUpdater />,
+      },
+      {
+        path: "/employees/sort/:sorted",
+        element: <EmployeeSortABC />
       },
     ],
   },

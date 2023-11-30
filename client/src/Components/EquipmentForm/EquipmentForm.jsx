@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const EquiptmentCreator = ({ onSave, disabled, equipment, onCancel}) => {
   const [name, setName] = useState(equipment?.name?? "");
   const [type, setType] = useState(equipment?.type?? "");
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState(equipment?.amount ?? "");
 
   const onSubmit = (e) => {
     e.preventDefault();
