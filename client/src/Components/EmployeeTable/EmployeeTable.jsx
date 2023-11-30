@@ -50,7 +50,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                 />
                 {/* <button type="submit" onClick={handleSearchLevel}>Search</button> */}
               </form>
-              <Link to={`employees/sort/level`}>
+              <Link to={`/employees/sort/level`}>
                 <button type="button" >ABC^</button>
               </Link>
             </th>
