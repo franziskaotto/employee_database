@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const EquipmentModel = require("./db/equipment.model");
+const PositionModel = require("./db/position.model")
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -183,6 +184,20 @@ app.delete("/api/equipment/:id", async (req, res) => {
     console.log(error);
   }
 });
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/api/positions", async(req, res) => {
+  try {
+    const postionsData = await PositionModel.find()
+    return res.json(postionsData)
+  }catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+})
 
 const main = async () => {
   await mongoose.connect(MONGO_URL);

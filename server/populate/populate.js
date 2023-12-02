@@ -9,6 +9,8 @@ const names = require("./names.json");
 const levels = require("./levels.json");
 const positions = require("./positions.json");
 const EmployeeModel = require("../db/employee.model");
+const position = require("./position.json");
+const PositionModel = require("../db/position.model");
 
 const mongoUrl = process.env.MONGO_URL;
 
@@ -44,6 +46,20 @@ const populateEmployees = async () => {
   console.log("Employees created");
 };
 
+
+const populatePositions = async () => {
+  await PositionModel.deleteMany({});
+
+  const positions = position.map((element) => ({
+    name: element.name,
+    salary: element.salary,
+  }));
+
+  await PositionModel.create(...positions);
+  console.log("positions created");
+};
+
+
 // Main function to connect to MongoDB, populate employees, and disconnect
 const main = async () => {
   // Connect to the MongoDB database using the specified URL
@@ -51,6 +67,7 @@ const main = async () => {
 
   // Populate the Employees collection in the database
   await populateEmployees();
+  await populatePositions();
 
   // Disconnect from the MongoDB database
   await mongoose.disconnect();

@@ -6,11 +6,15 @@ import { useState } from "react";
 const Layout = () => {
   const [click, setClick] = useState("employee")
 
-  const handleClick = () => {
-    setClick("equipment")
-    console.log(click)
+  const handleEquipmentClick = () => {
+    setClick("equipment");
+    console.log(click);
+  };
 
-  }
+  // const handlePositionsClick = () => {
+  //   setClick("positions");
+  //   console.log(click);
+  // };
 
 
   return (
@@ -18,13 +22,19 @@ const Layout = () => {
       <nav>
         <ul>
           <li className="grow">
-            <Link to="/" onClick={() => setClick("employee")}>Employees</Link>
-
+            <Link to="/" onClick={() => setClick("employee")}>
+              Employees
+            </Link>
           </li>
           <li>
             <Link to="/equipment">
-              <button type="button" onClick={handleClick}>
+              <button type="button" onClick={handleEquipmentClick}>
                 Equipment
+              </button>
+            </Link>
+            <Link to="/positions">
+              <button type="button">
+                Positions
               </button>
             </Link>
           </li>
