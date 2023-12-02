@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EquiptmentCreator = ({ onSave, disabled, equipment, onCancel}) => {
+const EquiptmentForm = ({ onSave, disabled, equipment, onCancel}) => {
   const [name, setName] = useState(equipment?.name?? "");
   const [type, setType] = useState(equipment?.type?? "");
   const [amount, setAmount] = useState(equipment?.amount ?? "");
@@ -69,4 +69,4 @@ const EquiptmentCreator = ({ onSave, disabled, equipment, onCancel}) => {
   );
 };
 
-export default EquiptmentCreator;
+export default EquiptmentForm;

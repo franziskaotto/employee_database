@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 
 import Layout from "./Pages/Layout";
 import ErrorPage from "./Pages/ErrorPage";
+
 import EmployeeList from "./Pages/EmployeeList";
 import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
+import EmployeeSortABC from "./Pages/EmployeeSortABC";
+
 import Superheroes from "./Pages/Superheroes";
+
 import EquipmentCreator from "./Pages/EquipmentCreator";
 import EquipmentList from "./Pages/EquipmentList";
 import EquipmentUpdater from "./Pages/EquipmentUpdater";
-import EmployeeSortABC from "./Pages/EmployeeSortABC";
-import { PositionList } from "./Pages/PositionList";
 
+import PositionList from "./Pages/PositionList";
 
 import "./index.css";
 import TableTest from "./Pages/TableTest";
