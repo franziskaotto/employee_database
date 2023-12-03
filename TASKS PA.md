@@ -28,7 +28,7 @@ Here are the corrected and refined versions of the exam tasks:
 - Update the 'populate.js' file to include these positions in the MongoDB.
 - Create a new page in the React frontend for displaying the stored positions.
 - Modify employee forms, replacing the position text field with a dropdown menu for position selection.
-- The employee document doesn't need to store the salary, just the position name. Optionally, the entire position document can be included in the employee document.
+- The employee document d*oesn't need to store the salary, just the position name. Optionally, the entire position document can be included in the employee document.
 
 ## Task 3:
 
@@ -36,6 +36,7 @@ Here are the corrected and refined versions of the exam tasks:
 - Update 'populate.js' to initialize an empty work log array for each employee.
 - Develop a page for adding work log entries for a chosen employee. This can be a modification of an existing route or a new route.
 - Implement a page to display work log entries for a selected employee. This component or view can be integrated into the update view or a previous view.
+
 
 ## Task 4:
 
