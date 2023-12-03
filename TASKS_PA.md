@@ -49,6 +49,10 @@ Here are the corrected and refined versions of the exam tasks:
 ## Task 5:
 
 - Add a 'Notes' button to each employee's profile. Clicking this button should redirect to a new route: “/employee/:employeeId/notes/”. This route will display all notes associated with a specific employee, where each note is text-based.
+
 - Ensure the employee document in the database includes a field to store notes.
+
 - Manually add a note to the database using a tool like MongoDB Compass.
+
+
 - Incorporate a text input field and a button on the notes page to facilitate the creation of new notes for the employee. Implement a separate server endpoint for adding notes. Newly added notes should automatically appear in the list.

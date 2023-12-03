@@ -6,7 +6,6 @@ const EmployeeModel = require("../db/employee.model");
 
 router.get("/", async (req, res) => {
   const employees = await EmployeeModel.find().sort({ created: "desc" });
-  console.log("get")
   return res.json(employees);
 });
 
@@ -62,11 +61,26 @@ router.get("/search", async (req, res) => {
   }
 });
 
+router.get("/:employeeId/notes", async (req, res) => {
+  try {
+    const id = req.params.employeeId;
+    const employee = await EmployeeModel.findById(id)
+    console.log(employee)
+    return res.json(employee)
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   const employee = await EmployeeModel.findById(req.params.id);
   return res.json(employee);
 });
+
+
+
 
 router.post("/", async (req, res, next) => {
   const employee = req.body;
