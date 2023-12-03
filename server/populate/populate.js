@@ -7,9 +7,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const names = require("./names.json");
 const levels = require("./levels.json");
-const positions = require("./positions.json");
-const EmployeeModel = require("../db/employee.model");
 const position = require("./position.json");
+const EmployeeModel = require("../db/employee.model");
 const PositionModel = require("../db/position.model");
 
 const mongoUrl = process.env.MONGO_URL;
@@ -33,30 +32,30 @@ const populateEmployees = async () => {
   //weil wir ja vielleicht schon einmal in der DB waren, muss er erst alles einmal löschen
   // Delete all existing documents in the EmployeeModel collection
   await EmployeeModel.deleteMany({});
+  const positionData = await PositionModel.fing()
 
   // Creates an array of employee objects with random names, levels, and position
-  const employees = names.map((name) => ({
-    name,
-    level: pick(levels),
-    position: pick(positions),
-  }));
+  const employees = names.map((name) => {
+    const randomPosition = pick(positionData);
+    return {
+      name,
+      level: pick(levels),
+      position: randomPosition,
+      salaray: randomPosition,
+
+    }
+  });
 
   // Insert the array of employee objects into the MongoDB database
   await EmployeeModel.create(...employees);
   console.log("Employees created");
 };
 
-
 const populatePositions = async () => {
   await PositionModel.deleteMany({});
 
-  const positions = position.map((element) => ({
-    name: element.name,
-    salary: element.salary,
-  }));
-
-  await PositionModel.create(...positions);
-  console.log("positions created");
+  await PositionModel.create(...positionsData);
+  console.log("Positions created");
 };
 
 
