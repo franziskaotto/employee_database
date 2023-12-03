@@ -22,7 +22,7 @@ const serverPath = "http://localhost:3000/api";
 
 const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
   try {
-    const response = await fetch(`${serverPath}/search?level=${searchedLevel}&position=${searchedPosition}`);
+    const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
     console.log(response);
     console.log(searchedLevel);
     const data = await response.json();
