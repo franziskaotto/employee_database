@@ -37,6 +37,7 @@ const populateEmployees = async () => {
     name,
     level: pick(levels),
     position: pick(positions),
+    workLog: []
   }));
 
   // Insert the array of employee objects into the MongoDB database

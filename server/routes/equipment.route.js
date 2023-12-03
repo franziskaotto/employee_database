@@ -44,7 +44,7 @@ router.patch("/update/:id", async (req, res) => {
   }
 });
 
-routerp.post("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const equipment = req.body;
 
   try {

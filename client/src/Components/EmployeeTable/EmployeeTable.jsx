@@ -27,22 +27,16 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
     searchEmployeeByPosition(e.target.value);
   };
 
-  // useEffect(()=> {
-  //   getEmpolyeesData();
-  // }, [searchedLevel, searchedPosition]);
-
   
   return (
     <div className="EmployeeTable">
       <table>
         <thead>
-         
           <tr>
             <th>Name</th>
             <th>
               Level
               <form type="submit">
-
                 <input
                   type="text"
                   placeholder="search"
@@ -50,7 +44,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                 />
               </form>
               <Link to={`/employees/sort/level`}>
-                <button type="button" >ABC^</button>
+                <button type="button">ABC^</button>
               </Link>
             </th>
             <th>
@@ -87,6 +81,9 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                   <button type="button" onClick={() => onDelete(employee._id)}>
                     Delete
                   </button>
+                  <Link to={`/employees/worklog/${employee._id}`}>
+                    <button>Worklog</button>
+                  </Link>
                 </td>
               </tr>
             ))}

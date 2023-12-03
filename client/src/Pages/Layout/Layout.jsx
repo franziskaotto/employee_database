@@ -3,6 +3,8 @@ import { Outlet, Link } from "react-router-dom";
 import "./Layout.css";
 import { useState } from "react";
 
+
+
 const Layout = () => {
   const [click, setClick] = useState("employee")
 
@@ -18,9 +20,11 @@ const Layout = () => {
       <nav>
         <ul>
           <li className="grow">
-            <Link to="/" onClick={() => setClick("employee")}>Employees</Link>
-
+            <Link to="/" onClick={() => setClick("employee")}>
+              Employees
+            </Link>
           </li>
+         
           <li>
             <Link to="/equipment">
               <button type="button" onClick={handleClick}>
