@@ -15,9 +15,6 @@ const updateEquipment = (equipment) => {
     body: JSON.stringify(equipment),
   }).then((res) => res.json());
 
-  // if(!res) {
-  //   console.log("no letter")
-  // }
 };
 
 const fetchEquipment = (id) => {

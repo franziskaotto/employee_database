@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
-//import FetchLevels from "../FetchLevels";
 
-
-//refactor: use one route with query, use one onclick handler function
 
 const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmployeeByPosition }) => {
 
@@ -26,10 +23,6 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
 
     searchEmployeeByPosition(e.target.value);
   };
-
-  // useEffect(()=> {
-  //   getEmpolyeesData();
-  // }, [searchedLevel, searchedPosition]);
 
   
   return (
@@ -73,7 +66,6 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
 
         <tbody>
           <>
-            {/* {employees.map((employee) => ( */}
             {employees.map((employee) => (
               <tr key={employee._id}>
                 <td>{employee.name}</td>
