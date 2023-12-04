@@ -1,9 +1,19 @@
 import { useState } from "react";
 
+
+
+
+
+
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
+  const [positionsData, setPositionsData] = useState(null)
+
+  const getPositionData = async () => {
+    await fetch("/api/positions").then((res) =>res.json())
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +34,12 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
     });
   };
 
+
+  useState(()=> {
+    getPositionData().then((positions) => {
+      setPositionsData(positions)
+    })
+  })
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
       <div className="control">
@@ -46,7 +62,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         />
       </div>
 
-      <div className="control">
+      {/* <div className="control">
         <label htmlFor="position">Position:</label>
         <input
           value={position}
@@ -54,6 +70,24 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           name="position"
           id="position"
         />
+      </div> */}
+      <div className="control">
+        <label htmlFor="position">Position:</label>
+        <select
+          value={position}
+          onChange={(e) => setPosition(e.target.value)}
+          name="position"
+          id="position"
+        >
+          <option value={""} disabled>
+            Select Position
+          </option>
+          {positionsData.map((position) => (
+            <option key={position._id} value={position.name}>
+              {position.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="buttons">

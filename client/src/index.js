@@ -19,7 +19,7 @@ import EmployeeSortABC from "./Pages/EmployeeSortABC";
 import "./index.css";
 import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
-import Positions from "./Pages/Positions";
+import PositionsList from "./Pages/PositionsList";
 
 const router = createBrowserRouter([
   {
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/positions",
-        element: <Positions />,
+        element: <PositionsList />,
       }
     ],
   },
