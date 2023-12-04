@@ -34,25 +34,6 @@ const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEm
   }
 };
 
-// const getEmpolyeesPosition = async (
-//   searchedPosition,
-//   setEmployeeList,
-  
-// ) => {
-//   try {
-//     const response = await fetch(`${serverPath}/search?position=${searchedPosition}`
-//     );
-//     console.log(response);
-//     console.log(searchedPosition);
-//     const data = await response.json();
-//     console.log(data);
-//     setEmployeeList(data);
-//   } catch (err) {
-//     console.error("Error fetching levels:", err);
-//   }
-// };
-
-
 
 
 const EmployeeList = () => {

@@ -9,6 +9,7 @@ const names = require("./names.json");
 const levels = require("./levels.json");
 const positions = require("./positions.json");
 const EmployeeModel = require("../db/employee.model");
+const PositionModel = require("../db/positions.model")
 
 const mongoUrl = process.env.MONGO_URL;
 
@@ -26,18 +27,30 @@ function pick(from) {
 die argumente werden in der populateEmployees übergeben
 */
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
+const populatePositions = async () => {
+  await PositionModel.deleteMany({})
+  await PositionModel.create(...positions)
+  console.log("positions created")
+
+}
 
 const populateEmployees = async () => {
   //weil wir ja vielleicht schon einmal in der DB waren, muss er erst alles einmal löschen
   // Delete all existing documents in the EmployeeModel collection
   await EmployeeModel.deleteMany({});
 
+  const positionData = await PositionModel.find()
+
   // Creates an array of employee objects with random names, levels, and position
-  const employees = names.map((name) => ({
-    name,
-    level: pick(levels),
-    position: pick(positions),
-  }));
+  const employees = names.map((name) => {
+    const randomPosition = pick(positionData)
+    return {
+      name,
+      level: pick(levels),
+      position: randomPosition.name,
+      salary: randomPosition.salary,
+    }
+  });
 
   // Insert the array of employee objects into the MongoDB database
   await EmployeeModel.create(...employees);
@@ -48,8 +61,7 @@ const populateEmployees = async () => {
 const main = async () => {
   // Connect to the MongoDB database using the specified URL
   await mongoose.connect(mongoUrl);
-
-  // Populate the Employees collection in the database
+  await populatePositions()
   await populateEmployees();
 
   // Disconnect from the MongoDB database
