@@ -22,6 +22,13 @@ const Layout = () => {
 
           </li>
           <li>
+            <Link to="/positions">
+              <button type="button">
+                Positions
+              </button>
+            </Link>
+          </li>
+          <li>
             <Link to="/equipment">
               <button type="button" onClick={handleClick}>
                 Equipment
