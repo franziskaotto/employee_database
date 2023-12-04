@@ -10,6 +10,17 @@ router.get("/", async (req, res) => {
   return res.json(employees);
 });
 
+router.get("/worklog/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const employee = EmployeeModel.findById(id)
+    const worklog = employee.worklog
+    return res.json(worklog);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+})
+
 router.get("/sort/:sorted", async (req, res) => {
   try {
     const sortedBy = req.params.sorted;

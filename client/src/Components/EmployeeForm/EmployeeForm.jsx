@@ -7,6 +7,8 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
   const [loading, setLoading] = useState(true);
+  const [hours, setHours] = useState(0)
+  const [label, setLabel] = useState("")
 
 
   if (loading) {
@@ -23,6 +25,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         name,
         level,
         position,
+        ...{worklog:[...employee.worklog, {hours: hours, label: label}]},
       });
     }
 
@@ -30,6 +33,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       name,
       level,
       position,
+      ...{ worklog: [...employee.worklog, { hours: hours, label: label }] },
     });
   };
 
@@ -60,6 +64,27 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         <input
           value={position}
           onChange={(e) => setPosition(e.target.value)}
+          name="position"
+          id="position"
+        />
+      </div>
+
+      <div className="control">
+        <label htmlFor="hours">Hours:</label>
+        <input
+          value={hours}
+          onChange={(e) => setHours(e.target.value)}
+          type={"number"}
+          name="hours"
+          id="hours"
+        />
+      </div>
+
+      <div className="control">
+        <label htmlFor="label">label:</label>
+        <input
+          value={position}
+          onChange={(e) => setLabel(e.target.value)}
           name="position"
           id="position"
         />
