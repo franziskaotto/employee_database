@@ -1,12 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const EquipmentModel = require("./db/equipment.model");
 
 
 //routes
 const employeeRoute = require("./routes/employees.route");
-const equimpentRoute = require("./routes/equipment.route")
+const equimpentRoute = require("./routes/equipment.route");
+const positionsRoute = require("./routes/positions.route");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -20,6 +20,7 @@ app.use(express.json());
 
 app.use("/api/employees/", employeeRoute);
 app.use("/api/equipment/", equimpentRoute);
+app.use("/api/positions/", positionsRoute);
 
 
 
