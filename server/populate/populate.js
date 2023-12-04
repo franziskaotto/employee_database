@@ -44,6 +44,7 @@ const populateEmployees = async () => {
   console.log("Employees created");
 };
 
+
 // Main function to connect to MongoDB, populate employees, and disconnect
 const main = async () => {
   // Connect to the MongoDB database using the specified URL
