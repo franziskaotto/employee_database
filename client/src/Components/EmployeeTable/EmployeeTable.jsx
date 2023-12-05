@@ -29,13 +29,11 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
     <div className="EmployeeTable">
       <table>
         <thead>
-         
           <tr>
             <th>Name</th>
             <th>
               Level
               <form type="submit">
-
                 <input
                   type="text"
                   placeholder="search"
@@ -44,7 +42,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                 {/* <button type="submit" onClick={handleSearchLevel}>Search</button> */}
               </form>
               <Link to={`/employees/sort/level`}>
-                <button type="button" >ABC^</button>
+                <button type="button">ABC^</button>
               </Link>
             </th>
             <th>
@@ -75,6 +73,9 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                   <input type="checkbox" id="option-1" />
                 </td>
                 <td>
+                  <Link to={`/employees/worklog/${employee._id}`}>
+                    <button type="button">Worklog</button>
+                  </Link>
                   <Link to={`/update/${employee._id}`}>
                     <button type="button">Update</button>
                   </Link>
