@@ -13,35 +13,24 @@ const PositionModel = require("../db/position.model");
 
 const mongoUrl = process.env.MONGO_URL;
 
-// Check if the MONGO_URL environment variable is provided
 if (!mongoUrl) {
   console.error("Missing MONGO_URL environment variable");
   process.exit(1); //  // Exit the program if MONGO_URL is missing
 }
 
-/*the (from) => is a parameter of the "pick" function:
-function pick(from) {
-  return from[Math.floor(Math.random() * from.length)];
-}
-
-die argumente werden in der populateEmployees übergeben
-*/
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
 const populateEmployees = async () => {
-  //weil wir ja vielleicht schon einmal in der DB waren, muss er erst alles einmal löschen
-  // Delete all existing documents in the EmployeeModel collection
   await EmployeeModel.deleteMany({});
-  const positionData = await PositionModel.fing()
+  const positionData = await PositionModel.find()
 
-  // Creates an array of employee objects with random names, levels, and position
   const employees = names.map((name) => {
     const randomPosition = pick(positionData);
     return {
       name,
       level: pick(levels),
-      position: randomPosition,
-      salaray: randomPosition,
+      position: randomPosition.name,
+      salaray: randomPosition.salaray,
 
     }
   });
@@ -54,7 +43,7 @@ const populateEmployees = async () => {
 const populatePositions = async () => {
   await PositionModel.deleteMany({});
 
-  await PositionModel.create(...positionsData);
+  await PositionModel.create(...position);
   console.log("Positions created");
 };
 
