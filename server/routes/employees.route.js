@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const EmployeeModel = require("../db/employee.model");
 
-
-
 router.get("/", async (req, res) => {
-  const employees = await EmployeeModel.find().sort({ created: "desc" });
+  const employees = await EmployeeModel
+  .find()
+  .sort({ created: "desc" })
+  .populate("company");
   console.log("get")
   return res.json(employees);
 });

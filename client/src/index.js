@@ -19,6 +19,7 @@ import EmployeeSortABC from "./Pages/EmployeeSortABC";
 import "./index.css";
 import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
+import CompanyCreator from "./Pages/CompanyCreator";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
         path: "/employees/sort/:sorted",
         element: <EmployeeSortABC />
       },
+      {
+        path: "/company/create",
+        element: <CompanyCreator />
+      }
     ],
   },
 ]);
