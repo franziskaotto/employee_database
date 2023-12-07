@@ -14,14 +14,11 @@ const createEmployee = (employee) => {
 
 const EmployeeCreator = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const handleCreateEmployee = (employee) => {
-    setLoading(true);
 
     createEmployee(employee)
       .then(() => {
-        setLoading(false);
         navigate("/");
       })
   };
@@ -29,7 +26,7 @@ const EmployeeCreator = () => {
   return (
     <EmployeeForm
       onCancel={() => navigate("/equipment")}
-      loading={loading}
+      // loading={loading}
       onSave={handleCreateEmployee}
     />
   );

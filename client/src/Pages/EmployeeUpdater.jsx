@@ -14,8 +14,18 @@ const updateEmployee = (employee) => {
   }).then((res) => res.json());
 };
 
-const fetchEmployee = (id) => {
-  return fetch(`/api/employees/${id}`).then((res) => res.json());
+const fetchEmployee = async (id) => {
+  try {
+    const response = await fetch(`/api/employees/${id}`);
+    if (!response) {
+      throw new Error("Error fetching update ID");
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log("Error fetching update ID: ", error)
+  }
+  
 };
 
 const EmployeeUpdater = () => {

@@ -6,17 +6,14 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
-  const [loading, setLoading] = useState(true);
 
 
-  if (loading) {
-    return <Loading />;
-  }
+  
 
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    
     if (employee) {
       return onSave({
         ...employee,
