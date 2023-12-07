@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
 
-const fetchEmployees = () => {
-  return fetch("/api/employees").then((res) => res.json());
+const fetchEmployees = async () => {
+  try {
+    const response = await fetch("/api/employees")
+    const data = await response.json()
+    return data
+    
+  } catch (error) {
+    console.log("error fetchEmployees", error)
+  }
 };
 
 
@@ -16,6 +23,13 @@ const deleteEmployee = (id) => {
   );
 };
 
+//nicht in der levelDB sortieren sondern Employee nach nummer
+
+//alle alten searches auskommentieren
+//ich suche im levelsmodel nach einem dokument dass den namen vom frontend 
+
+//ich schick das ganze object level mit name property und cvalue property  e.target.value muss dann den namen der level propery
+//ich schick das ganze levelobject zum backend
 
 
 const serverPath = "http://localhost:3000/api";
@@ -34,23 +48,7 @@ const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEm
   }
 };
 
-// const getEmpolyeesPosition = async (
-//   searchedPosition,
-//   setEmployeeList,
-  
-// ) => {
-//   try {
-//     const response = await fetch(`${serverPath}/search?position=${searchedPosition}`
-//     );
-//     console.log(response);
-//     console.log(searchedPosition);
-//     const data = await response.json();
-//     console.log(data);
-//     setEmployeeList(data);
-//   } catch (err) {
-//     console.error("Error fetching levels:", err);
-//   }
-// };
+
 
 
 
@@ -61,7 +59,8 @@ const EmployeeList = () => {
   const [level, setLevel] = useState("")
   const [position, setPosition]  = useState("");
 
-
+  const [level4, setLevel4] = useState("");
+  const [order, setOrder] = useState("desc");
   
 
   const handleDelete = (id) => {
@@ -72,13 +71,15 @@ const EmployeeList = () => {
     });
   };
 
-  useEffect(() => {
-    fetchEmployees()
-      .then((employees) => {
-        setLoading(false);
-        setEmployees(employees);
-      })
-  }, []);
+  // useEffect(() => {
+  //   fetchEmployees()
+  //     .then((employees) => {
+  //       setLoading(false);
+  //       setEmployees(employees);
+  //     })
+  // }, []);
+
+  //i need 2 fetches 1x für die unsorted Employees? 1x für die filterdEmployees mit levels
 
  console.log("inside EmployeeList")
 
@@ -101,7 +102,11 @@ const EmployeeList = () => {
 
   return (
     <>
-      <EmployeeTable employees={employees} onDelete={handleDelete} setEmployees={setEmployees} searchEmployeeByLevel={searchEmployeeByLevel} searchEmployeeByPosition={searchEmployeeByPosition} />;
+      <EmployeeTable 
+      employees={employees} 
+      onDelete={handleDelete} 
+      setEmployees={setEmployees} 
+      searchEmployeeByLevel={searchEmployeeByLevel} searchEmployeeByPosition={searchEmployeeByPosition} />;
     </>
 
   )

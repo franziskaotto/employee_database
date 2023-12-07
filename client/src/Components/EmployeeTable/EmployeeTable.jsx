@@ -12,6 +12,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
   const [searchedLevel, setSearchedLevel] = useState('');
   const [searchedPosition, setSearchedPosition]= useState('');
 
+ 
   
   const handleSearchLevel = (e) => {
     setSearchedLevel(e.target.value);
@@ -69,7 +70,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
             {employees.map((employee) => (
               <tr key={employee._id}>
                 <td>{employee.name}</td>
-                <td>{employee.level}</td>
+                <td>{employee?.level.name}</td>
                 <td>{employee.position}</td>
                 <td>
                   <input type="checkbox" id="option-1" />

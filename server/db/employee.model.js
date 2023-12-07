@@ -5,7 +5,10 @@ const { Schema } = mongoose;
 
 const EmployeeSchema = new Schema({
   name: String,
-  level: String,
+  level: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Levels"
+  },
   position: String,
   created: {
     type: Date,

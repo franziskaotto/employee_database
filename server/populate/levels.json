@@ -1,1 +1,22 @@
-["Junior", "Medior", "Senior", "Expert", "Godlike"]
+[
+  {
+    "value": 1,
+    "name": "Junior"
+  },
+  {
+    "value": 2,
+    "name": "Medior"
+  },
+  {
+    "value": 3,
+    "name": "Senior"
+  },
+  {
+    "value": 4,
+    "name": "Expert"
+  },
+  {
+    "value": 5,
+    "name": "Godlike"
+  }
+]
