@@ -25,10 +25,10 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
    const formData = new FormData(e.target);
    const entries = [...formData.entries()];
 
-   const company = entries.reduce((acc, entry) => {
-     const [k, v] = entry;
-     acc[k] = v;
-     return acc;
+   const company = entries.reduce((accumulator, entry) => {
+     const [key, value] = entry;
+     accumulator[key] = value;
+     return accumulator;
    }, {});
    return onSave(company);
  };
