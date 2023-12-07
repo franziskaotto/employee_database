@@ -17,6 +17,7 @@ const updateEmployee = (employee) => {
 const fetchEmployee = async (id) => {
   try {
     const response = await fetch(`/api/employees/${id}`);
+    
     if (!response) {
       throw new Error("Error fetching update ID");
     }
