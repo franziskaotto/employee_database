@@ -34,19 +34,37 @@ const deleteEmployee = (id) => {
 
 const serverPath = "http://localhost:3000/api";
 
-const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
-  try {
-    const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
-    console.log(response);
-    console.log(searchedLevel);
-    const data = await response.json();
-    console.log(data);
+// const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
+//   try {
+//     const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
+//     console.log(response);
+//     console.log(searchedLevel);
+//     const data = await response.json();
+//     console.log(data);
 
-    setEmployees(data);
-  } catch (err) {
-    console.error("Error fetching levels:", err);
+//     setEmployees(data);
+//   } catch (error) {
+//     console.error("Error fetching levels:", error);
+//   }
+// };
+
+const fetchFilteredEmployees = async (level, sort) => {
+  try {
+    const params = new URLSearchParams();
+    params.append("level", level)
+    params.append("sort", sort)
+
+    const response = await fetch(`${serverPath}/levelfilter?${params.toString()}`)
+    console.log(level)
+    console.log(response)
+    const data = response.json()
+    return data
+    
+  } catch (error) {
+    console.error("Error fetching levels:", error);
   }
-};
+}
+
 
 
 
@@ -56,11 +74,11 @@ const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEm
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
-  const [level, setLevel] = useState("")
-  const [position, setPosition]  = useState("");
+  //const [level, setLevel] = useState("")
+  //const [position, setPosition]  = useState("");
 
-  const [level4, setLevel4] = useState("");
-  const [order, setOrder] = useState("desc");
+  const [level, setLevel] = useState("");
+  const [sort, setSort] = useState("desc");
   
 
   const handleDelete = (id) => {
@@ -71,30 +89,56 @@ const EmployeeList = () => {
     });
   };
 
-  // useEffect(() => {
-  //   fetchEmployees()
-  //     .then((employees) => {
-  //       setLoading(false);
-  //       setEmployees(employees);
-  //     })
-  // }, []);
+  useEffect(() => {
+    if(!level) {
+      fetchEmployees().then((employees) => {
+        setLoading(false);
+        setEmployees(employees);
+      })
+
+    } else {
+      fetchFilteredEmployees(level).then((employees) => {
+        setLoading(false);
+        setEmployees(employees)
+      })
+      .catch((error) => {
+        console.log("error fetching sorted employees: ", error);
+        setLoading(false)
+      })
+    }
+  }, [level]);
 
   //i need 2 fetches 1x für die unsorted Employees? 1x für die filterdEmployees mit levels
 
  console.log("inside EmployeeList")
 
 
-  const searchEmployeeByLevel = (searchInput) =>{
+  // const searchEmployeeByLevel = (searchInput) =>{
+  //   setLevel(searchInput)
+  //   getEmpolyeesLeveluPosition(searchInput, position, setEmployees)
+  // }
+
+  // const searchEmployeeByPosition = (searchInput) => {
+  //   setPosition(searchInput)
+  //   getEmpolyeesLeveluPosition(level, searchInput, setEmployees);
+  // }
+
+  const searchByLevel = (searchInput) => {
     setLevel(searchInput)
-    getEmpolyeesLeveluPosition(searchInput, position, setEmployees)
+    
   }
 
-  const searchEmployeeByPosition = (searchInput) => {
-    setPosition(searchInput)
-    getEmpolyeesLeveluPosition(level, searchInput, setEmployees);
+  const handleOrderClick = async () => {
+    try {
+      const newSortOrder = sort === "asc" ? "desc" : "asc";
+      console.log(newSortOrder)
+      const employees = await fetchFilteredEmployees(level, newSortOrder);
+      setSort(newSortOrder)
+      setEmployees(employees)
+    } catch (error) {
+      console.log("error fetching sortet emplyoees", error)
+    }
   }
-
-
 
   if (loading) {
     return <Loading />;
@@ -102,14 +146,19 @@ const EmployeeList = () => {
 
   return (
     <>
-      <EmployeeTable 
-      employees={employees} 
-      onDelete={handleDelete} 
-      setEmployees={setEmployees} 
-      searchEmployeeByLevel={searchEmployeeByLevel} searchEmployeeByPosition={searchEmployeeByPosition} />;
-    </>
+      <EmployeeTable
+        employees={employees}
+        onDelete={handleDelete}
+        setEmployees={setEmployees}
+        searchByLevel={searchByLevel}
+        handleOrderClick={handleOrderClick}
 
-  )
+        //searchEmployeeByLevel={searchEmployeeByLevel}
+        //searchEmployeeByPosition={searchEmployeeByPosition}
+      />
+      ;
+    </>
+  );
 };
 
 export default EmployeeList;

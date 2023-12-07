@@ -3,65 +3,41 @@ import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
 
-const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmployeeByPosition }) => {
+const EmployeeTable = ({ employees, onDelete, searchByLevel, handleOrderClick  }) => {
 
   console.log(employees)
-  console.log(searchEmployeeByLevel, "byLEVEL")
-  console.log(searchEmployeeByPosition, "ByPostion")
-
-  const [searchedLevel, setSearchedLevel] = useState('');
-  const [searchedPosition, setSearchedPosition]= useState('');
-
+  
+  const [levelInput, setlevelInput] = useState("");
+  
+  const handlSearchLevel = (e) => {
+    setlevelInput(e.target.value)
+    searchByLevel(e.target.value)
+  }
  
-  
-  const handleSearchLevel = (e) => {
-    setSearchedLevel(e.target.value);
-    searchEmployeeByLevel(e.target.value);
-  };
-  
-  const handleSearchPosition = (e) => {
-    setSearchedPosition(e.target.value);
-
-    searchEmployeeByPosition(e.target.value);
-  };
 
   
   return (
     <div className="EmployeeTable">
       <table>
         <thead>
-         
           <tr>
             <th>Name</th>
+
             <th>
               Level
               <form type="submit">
-
                 <input
                   type="text"
                   placeholder="search"
-                  onChange={handleSearchLevel}
+                  value={levelInput}
+                  onChange={handlSearchLevel}
                 />
-                {/* <button type="submit" onClick={handleSearchLevel}>Search</button> */}
               </form>
-              <Link to={`/employees/sort/level`}>
-                <button type="button" >ABC^</button>
-              </Link>
-            </th>
-            <th>
-              Position
-              <input
-                type="text"
-                placeholder="search"
-                onChange={handleSearchPosition}
-              />
-              <Link to={"/employees/sort/position"}>
+              <Link to={`/levelfilter/:sorted`}>
                 <button type="button">ABC^</button>
               </Link>
             </th>
-            <th>Present</th>
-
-            <th />
+            <th>Position</th>
           </tr>
         </thead>
 
@@ -70,7 +46,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
             {employees.map((employee) => (
               <tr key={employee._id}>
                 <td>{employee.name}</td>
-                <td>{employee?.level.name}</td>
+                <td>{employee.level}</td>
                 <td>{employee.position}</td>
                 <td>
                   <input type="checkbox" id="option-1" />
