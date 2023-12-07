@@ -4,7 +4,6 @@ const PositionsModel = require("../db/positions.model");
 
 router.get("/", async (req, res) => {
   try {
-    console.log("here")
     const positions = await PositionsModel.find()
     return res.json(positions);
     
