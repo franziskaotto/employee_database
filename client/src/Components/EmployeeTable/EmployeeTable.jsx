@@ -25,6 +25,7 @@ const EmployeeTable = ({ employees, onDelete, searchByLevel, handleOrderClick  }
 
             <th>
               Level
+
               <form type="submit">
                 <input
                   type="text"
@@ -33,11 +34,14 @@ const EmployeeTable = ({ employees, onDelete, searchByLevel, handleOrderClick  }
                   onChange={handlSearchLevel}
                 />
               </form>
-              <Link to={`/levelfilter/:sorted`}>
-                <button type="button">ABC^</button>
-              </Link>
+              <button type="button" onClick={handleOrderClick}>
+                ABC^
+              </button>
             </th>
-            <th>Position</th>
+            <th>
+              Position
+              
+            </th>
           </tr>
         </thead>
 

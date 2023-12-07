@@ -20,25 +20,33 @@ const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
 const populateLevels = async () => {
   await LevelModel.deleteMany({});
+
   const allLevels = levels.map((level) => ({
     name: level.name,
     value: level.value,
   }))
-  createLevels = await LevelModel.create(...allLevels);
+  createdLevels = await LevelModel.create(...allLevels);
   console.log("levels created")
+  console.log(createdLevels)
 }
 
 const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
 
-  const employees = names.map((name) => ({
-    name,
-    level: pick(createLevels),
-    position: pick(positions),
-  }));
+  const employees = names.map((name) => {
+   // const levelKey = pick(Object.keys(levels));
+   console.log("________________________________________________")
+   console.log(pick(createdLevels))
+    return {
+      name,
+      level: pick(createdLevels).name,
+      position: pick(positions),
+    };
+  });
 
-  await EmployeeModel.create(...employees);
+  const createEmployees = await EmployeeModel.create(...employees);
   console.log("Employees created");
+  console.log(createEmployees);
 };
 
 const main = async () => {

@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 const LevelModel = require("../db/level.model")
 
+
 router.get("/", async (req, res) => {
   try {
-    const { level, sort } = req.query;
+    const { level, sortOrder } = req.query;
     let query = {}
     let sorting = {}
     const levelName = level.levelName
 
-    console.log(sort)
+    console.log(sortOrder)
 
     if(level) {
       query = {
@@ -17,13 +18,11 @@ router.get("/", async (req, res) => {
       };
     }
     
-    if (sort) {
-      sorting.level = sort === "desc" ? -1 : 1;
+    if (sortOrder) {
+      sorting.level = sortOrder === "desc" ? -1 : 1;
     }
 
-    const employees = await EmployeeModel.find(query)
-    .populate("level")
-    .sort(sorting)
+    const employees = await EmployeeModel.find(query).populate("level").sort(sorting)
 
     return res.json(employees)
 

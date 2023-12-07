@@ -7,7 +7,7 @@ const EquipmentModel = require("./db/equipment.model");
 //routes
 const employeeRoute = require("./routes/employees.route");
 const equimpentRoute = require("./routes/equipment.route");
-const levelRoute = require("./routes/TRYlevel.route");
+const levelRoute = require("./routes/level.route");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
