@@ -33,16 +33,17 @@ const populateLevels = async () => {
 const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
 
+  const levelData = await LevelModel.find()
+
   const employees = names.map((name) => {
-   // const levelKey = pick(Object.keys(levels));
-   console.log("________________________________________________")
-   console.log(pick(createdLevels))
+    const randomLevel = pick(levelData)
     return {
       name,
-      level: pick(createdLevels).name,
+      level: { value: randomLevel.value, name: randomLevel.name },
       position: pick(positions),
     };
   });
+
 
   const createEmployees = await EmployeeModel.create(...employees);
   console.log("Employees created");
