@@ -20,14 +20,11 @@ const fetchFilteredEmployees = async (searchInput, sortOrder, setEmployees, ) =>
     const params = new URLSearchParams();
     params.append("level", searchInput);
     params.append("sortOrder", sortOrder);
-    console.log(sortOrder)
 
     const response = await fetch(`${serverPath}/level?${params.toString()}`);
     const data = await response.json();
-    console.log(data)
-    
-    console.log("SortOrder in fetchFilter", sortOrder);
     setEmployees(data);
+
   } catch (err) {
     console.error("Error fetching levels:", err);
   }
@@ -39,7 +36,6 @@ const EmployeeList = () => {
   const [level, setLevel] = useState("");
   const [sorted, setSorted] = useState("")
   
-  //console.log(employees)
   const handleDelete = (id) => {
     deleteEmployee(id);
 
@@ -55,8 +51,6 @@ const EmployeeList = () => {
     });
   }, []);
 
-  //console.log("inside EmployeeList");
-
   const searchEmployeeByLevel = async (searchInput) => {
     setLevel(searchInput);
     console.log(searchInput)
@@ -64,9 +58,6 @@ const EmployeeList = () => {
   };
 
   const handleSortByABC = async (sortedValue) => {
-    console.log("handle SortByABC Clicked")
-    console.log(sortedValue)
-    console.log(level)
     const sortOrder = sortedValue
     await fetchFilteredEmployees(level, sortOrder, setEmployees);
     setSorted(sortedValue)

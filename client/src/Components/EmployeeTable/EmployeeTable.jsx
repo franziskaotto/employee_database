@@ -8,26 +8,24 @@ const EmployeeTable = ({
   searchEmployeeByLevel,
   handleSortByABC,
 }) => {
-  console.log(employees);
-  //console.log(searchEmployeeByLevel, "byLEVEL");
 
   const [searchedLevel, setSearchedLevel] = useState("");
   const [sort, setSort] = useState("desc")
 
+  
+  const handleClick = () => {
+    console.log("handle Clicked");
+    
+    const newSortOrder = sort === "asc" ? "desc" : "asc";
+    handleSortByABC(newSortOrder)
+    setSort(newSortOrder)
+    
+  }
+  
   const handleSearchLevel = (e) => {
     setSearchedLevel(e.target.value);
     searchEmployeeByLevel(e.target.value);
   };
-
-  const handleClick = () => {
-    console.log("handle Clicked");
-
-    const newSortOrder = sort === "asc" ? "desc" : "asc";
-    handleSortByABC(newSortOrder)
-    setSort(newSortOrder)
-
-  }
-
   
   console.log(employees)
   return (
