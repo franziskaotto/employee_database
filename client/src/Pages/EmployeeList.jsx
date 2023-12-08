@@ -1,86 +1,45 @@
 import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
+import { useLinkClickHandler } from "react-router-dom";
 
-const fetchEmployees = async () => {
-  try {
-    const response = await fetch("/api/employees")
-    const data = await response.json()
-    return data
-    
-  } catch (error) {
-    console.log("error fetchEmployees", error)
-  }
+const fetchEmployees = () => {
+  return fetch("/api/employees").then((res) => res.json());
 };
-
-
 
 const deleteEmployee = (id) => {
-  return fetch(`/api/employees/${id}`, { 
-    method: "DELETE" })
-    .then((res) =>
-    res.json()
-  );
+  return fetch(`/api/employees/${id}`, {
+    method: "DELETE",
+  }).then((res) => res.json());
 };
-
-//nicht in der levelDB sortieren sondern Employee nach nummer
-
-//alle alten searches auskommentieren
-//ich suche im levelsmodel nach einem dokument dass den namen vom frontend 
-
-//ich schick das ganze object level mit name property und cvalue property  e.target.value muss dann den namen der level propery
-//ich schick das ganze levelobject zum backend
-
 
 const serverPath = "http://localhost:3000/api";
 
-// const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
-//   try {
-//     const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
-//     console.log(response);
-//     console.log(searchedLevel);
-//     const data = await response.json();
-//     console.log(data);
-
-//     setEmployees(data);
-//   } catch (error) {
-//     console.error("Error fetching levels:", error);
-//   }
-// };
-
-const fetchFilteredEmployees = async (level, sort) => {
+const fetchFilteredEmployees = async (searchInput, sortOrder, setEmployees, ) => {
   try {
     const params = new URLSearchParams();
-    params.append("level", level)
-    params.append("sort", sort)
+    params.append("level", searchInput);
+    params.append("sortOrder", sortOrder);
+    console.log(sortOrder)
 
-    const response = await fetch(`${serverPath}/levelfilter?${params.toString()}`)
-    console.log(level)
-    console.log(response)
-    const data = response.json()
-    return data
+    const response = await fetch(`${serverPath}/level?${params.toString()}`);
+    const data = await response.json();
+    console.log(data)
     
-  } catch (error) {
-    console.error("Error fetching levels:", error);
+    console.log("SortOrder in fetchFilter", sortOrder);
+    setEmployees(data);
+  } catch (err) {
+    console.error("Error fetching levels:", err);
   }
-}
-
-
-
-
-
-
+};
 
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
-  //const [level, setLevel] = useState("")
-  //const [position, setPosition]  = useState("");
-
   const [level, setLevel] = useState("");
-  const [sort, setSort] = useState("desc");
+  const [sorted, setSorted] = useState("")
   
-
+  //console.log(employees)
   const handleDelete = (id) => {
     deleteEmployee(id);
 
@@ -90,55 +49,28 @@ const EmployeeList = () => {
   };
 
   useEffect(() => {
-    if(!level) {
-      fetchEmployees().then((employees) => {
-        setLoading(false);
-        setEmployees(employees);
-      })
+    fetchEmployees().then((employees) => {
+      setLoading(false);
+      setEmployees(employees);
+    });
+  }, []);
 
-    } else {
-      fetchFilteredEmployees(level).then((employees) => {
-        setLoading(false);
-        setEmployees(employees)
-      })
-      .catch((error) => {
-        console.log("error fetching sorted employees: ", error);
-        setLoading(false)
-      })
-    }
-  }, [level]);
+  //console.log("inside EmployeeList");
 
-  //i need 2 fetches 1x für die unsorted Employees? 1x für die filterdEmployees mit levels
+  const searchEmployeeByLevel = async (searchInput) => {
+    setLevel(searchInput);
+    console.log(searchInput)
+    await fetchFilteredEmployees(searchInput, sorted, setEmployees);
+  };
 
- console.log("inside EmployeeList")
-
-
-  // const searchEmployeeByLevel = (searchInput) =>{
-  //   setLevel(searchInput)
-  //   getEmpolyeesLeveluPosition(searchInput, position, setEmployees)
-  // }
-
-  // const searchEmployeeByPosition = (searchInput) => {
-  //   setPosition(searchInput)
-  //   getEmpolyeesLeveluPosition(level, searchInput, setEmployees);
-  // }
-
-  const searchByLevel = (searchInput) => {
-    setLevel(searchInput)
-    
-  }
-
-  const handleOrderClick = async () => {
-    try {
-      const newSortOrder = sort === "asc" ? "desc" : "asc";
-      console.log(newSortOrder)
-      const employees = await fetchFilteredEmployees(level, newSortOrder);
-      setSort(newSortOrder)
-      setEmployees(employees)
-    } catch (error) {
-      console.log("error fetching sortet emplyoees", error)
-    }
-  }
+  const handleSortByABC = async (sortedValue) => {
+    console.log("handle SortByABC Clicked")
+    console.log(sortedValue)
+    console.log(level)
+    const sortOrder = sortedValue
+    await fetchFilteredEmployees(level, sortOrder, setEmployees);
+    setSorted(sortedValue)
+  };
 
   if (loading) {
     return <Loading />;
@@ -150,11 +82,8 @@ const EmployeeList = () => {
         employees={employees}
         onDelete={handleDelete}
         setEmployees={setEmployees}
-        searchByLevel={searchByLevel}
-        handleOrderClick={handleOrderClick}
-
-        //searchEmployeeByLevel={searchEmployeeByLevel}
-        //searchEmployeeByPosition={searchEmployeeByPosition}
+        searchEmployeeByLevel={searchEmployeeByLevel}
+        handleSortByABC={handleSortByABC}
       />
       ;
     </>

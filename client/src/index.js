@@ -14,7 +14,6 @@ import EquipmentCreator from "./Pages/EquipmentCreator";
 import EquipmentList from "./Pages/EquipmentList";
 import EquipmentUpdater from "./Pages/EquipmentUpdater";
 import EmployeeSortABC from "./Pages/EmployeeSortABC";
-import LevelSortABC from "./Pages/LevelSortABC"
 
 
 import "./index.css";
@@ -71,10 +70,7 @@ const router = createBrowserRouter([
         path: "/employees/sort/:sorted",
         element: <EmployeeSortABC />
       },
-      {
-        path:"/levelfilter/:sorted",
-        element: <LevelSortABC />
-      }
+      
     ],
   },
 ]);

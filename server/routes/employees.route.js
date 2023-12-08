@@ -11,7 +11,6 @@ const levels = require("./level.route")
 
 router.get("/", async (req, res) => {
   const employees = await EmployeeModel.find().sort({ created: "desc" });
-  console.log("get")
   return res.json(employees);
 });
 

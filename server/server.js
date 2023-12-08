@@ -21,7 +21,7 @@ app.use(express.json());
 
 app.use("/api/employees/", employeeRoute);
 app.use("/api/equipment/", equimpentRoute);
-app.use("/api/levelfilter/", levelRoute)
+app.use("/api/level/", levelRoute)
 
 
 
