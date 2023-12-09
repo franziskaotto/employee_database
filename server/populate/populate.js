@@ -6,7 +6,6 @@ const levels = require("./levels.json");
 const positions = require("./positions.json");
 const EmployeeModel = require("../db/employee.model");
 const notes = require("./note.json")
-const NoteModel = require("../db/notes.model");
 
 const mongoUrl = process.env.MONGO_URL;
 
@@ -26,7 +25,7 @@ const populateEmployees = async () => {
     name,
     level: pick(levels),
     position: pick(positions),
-    notes: pick(notes)
+    note: [pick(notes)]
   }));
 
   await EmployeeModel.create(...employees);

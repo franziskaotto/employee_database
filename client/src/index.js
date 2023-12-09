@@ -72,7 +72,7 @@ const router = createBrowserRouter([
         element: <EmployeeSortABC />
       },
       {
-        path: "/notes",
+        path: "/employee/:id/notes",
         element: <EmployeeNotes />
       },
     ],

@@ -65,13 +65,28 @@ router.get("/:employeeId/notes", async (req, res) => {
   try {
     const id = req.params.employeeId;
     const employee = await EmployeeModel.findById(id)
-    console.log(employee)
     return res.json(employee)
 
   } catch (error) {
     console.log(error);
   }
 });
+
+
+router.patch("/:employeeId/notes/", async (req, res) => {
+  try {
+    const newNote = req.body.note;
+    const id = req.params.employeeId
+  
+    let updatedEmployee = await EmployeeModel.findById(id)
+    updatedEmployee.note.push(newNote)
+    await updatedEmployee.save()
+    
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;

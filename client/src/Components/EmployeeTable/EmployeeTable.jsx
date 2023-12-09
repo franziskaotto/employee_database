@@ -27,10 +27,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
     searchEmployeeByPosition(e.target.value);
   };
 
-  // useEffect(()=> {
-  //   getEmpolyeesData();
-  // }, [searchedLevel, searchedPosition]);
-
+  
   
   return (
     <div className="EmployeeTable">
@@ -89,8 +86,8 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                   <button type="button" onClick={() => onDelete(employee._id)}>
                     Delete
                   </button>
-                  <Link to={`/api/notes/${employee._id}`}>
-                    <button type="button">Notes</button>
+                  <Link to={`/employee/${employee._id}/notes`}>
+                    <button type="button">See Notes</button>
                   </Link>
                 </td>
               </tr>
