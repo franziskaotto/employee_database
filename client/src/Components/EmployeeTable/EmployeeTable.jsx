@@ -89,7 +89,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                   <button type="button" onClick={() => onDelete(employee._id)}>
                     Delete
                   </button>
-                  <Link to={`/api/employees/${employee._id}/notes`}>
+                  <Link to={`/api/notes/${employee._id}`}>
                     <button type="button">Notes</button>
                   </Link>
                 </td>

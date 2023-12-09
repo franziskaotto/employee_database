@@ -5,15 +5,15 @@ const EmployeeModel = require("../db/employee.model");
 const NotesModel = require("../db/notes.model")
 
 //JUST FOR TESTING
-router.get("/", async (req, res) => {
-  try {
-    const employee = await EmployeeModel.find()
-    return res.json(employee)
+// router.get("/", async (req, res) => {
+//   try {
+//     const employee = await EmployeeModel.find()
+//     return res.json(employee)
     
-  } catch (error) {
-    return res.status(500).json({ "internal server Error:": error });
-  }
-})
+//   } catch (error) {
+//     return res.status(500).json({ "internal server Error:": error });
+//   }
+// })
 
 router.get("/:id", async (req, res) => {
   try {
@@ -27,9 +27,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
+//copy from equipment.route.js
 router.patch("/:id", async (req, res) => {
-
   try {
     const updatedNotes = await EmployeeModel.findOneAndUpdate(
       { _id: req.params.id },
@@ -49,17 +48,20 @@ router.patch("/:id", async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
-
-router.post("/", async (req, res) => {
-  const newNote = req.body;
-  console.log(newNote)
-
-  try {
-    const data = await NotesModel.create(newNote);
-    return res.json(data);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 module.exports = router;
+
+
+
+
+// router.post("/", async (req, res) => {
+//   const newNote = req.body;
+//   console.log(newNote)
+
+//   try {
+//     const data = await NotesModel.create(newNote);
+//     return res.json(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
