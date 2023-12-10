@@ -5,8 +5,8 @@ import Loading from "../Loading";
 
 
 
-const fetchPostions = () => {
-  return fetch("/api/positions").then((res) => res.json())
+const fetchPostions = async () => {
+  return await fetch("/api/positions").then((res) => res.json())
 }
 
 
@@ -85,7 +85,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           id="position"
         >
           <option value={""} disabled>
-            --select postion--
+            --select position--
           </option>
           {positionsData.map((pos) => (
             <option key={pos._id} value={pos.name}>

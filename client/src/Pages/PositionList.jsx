@@ -4,10 +4,8 @@ import Loading from "../Components/Loading";
 import PositionsTable from '../Components/PositionsTable';
 
 
-
-
-const fetchPositionsData = () => {
-  return fetch("/api/positions").then((res) => res.json());
+const fetchPositionsData = async () => {
+  return await fetch("/api/positions").then((res) => res.json());
 };
 
 
@@ -24,7 +22,7 @@ const PositionList = () => {
       })
   }, [])
 
-console.log(positionsData)
+  console.log(positionsData)
 
   if (loading) {
     return <Loading />;

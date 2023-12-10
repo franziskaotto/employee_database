@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const PositionsTable = ( {positions}) => {
 
@@ -18,10 +17,7 @@ const PositionsTable = ( {positions}) => {
             {positions?.map((pos) => (
               <tr key={pos._id}>
                 <td>{pos.name}</td>
-                <td>{pos.salary}</td>
-
-                
-               
+                <td>$ {pos.salary}</td>
               </tr>
             ))}
           </>
