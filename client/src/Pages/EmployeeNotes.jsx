@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 const serverPath = "http://localhost:3000/api/employees";
 
 const fetchOneEmployee = async (id) => {
-
   try {
     const response = await fetch(`${serverPath}/${id}/notes`);
     const data = await response.json();
@@ -16,15 +15,14 @@ const fetchOneEmployee = async (id) => {
 };
 
 const postNewNote = async (id, newNote) => {
-
   try {
     console.log(newNote)
     const response = await fetch(`${serverPath}/${id}/notes`, {
-      method: "POST",
+      method: "PATCH",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newNote),
+      body: JSON.stringify({ note: newNote }),
     });
 
     const data = await response.json()
@@ -56,8 +54,7 @@ const EmployeeNotes = () => {
     e.preventDefault();
     setNewNote("")
     postNewNote(id, newNote)
-    console.log(newNote)
-    console.log("HandleSaveClickes")
+    setNoteList((prevNoteList) => [...prevNoteList, newNote]);
   }
 
 
@@ -67,6 +64,7 @@ const EmployeeNotes = () => {
         <tr>
           <th>
             Name: {employee.name}
+
             <form onSubmit={handleSave}>
               <div className="control">
                 <input
@@ -79,6 +77,7 @@ const EmployeeNotes = () => {
                 <button type="submit">save Note</button>
               </div>
             </form>
+            
           </th>
         </tr>
       </thead>
