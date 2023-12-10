@@ -11,7 +11,7 @@ const mongoUrl = process.env.MONGO_URL;
 
 if (!mongoUrl) {
   console.error("Missing MONGO_URL environment variable");
-  process.exit(1); //  // Exit the program if MONGO_URL is missing
+  process.exit(1); 
 }
 
 
