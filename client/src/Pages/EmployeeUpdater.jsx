@@ -5,7 +5,7 @@ import EmployeeForm from "../Components/EmployeeForm";
 import Loading from "../Components/Loading";
 
 const updateEmployee = (employee) => {
-  return fetch(`/api/employees/update/${employee._id}`, {
+  return fetch(`/api/employees/${employee._id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -13,6 +13,16 @@ const updateEmployee = (employee) => {
     body: JSON.stringify(employee),
   }).then((res) => res.json());
 };
+
+const fetchCompanies = async () => {
+  try {
+    const response = await fetch("/api/company")
+    const data = await response.json()
+    return data;
+  } catch (error) {
+    console.log("error fetching Companies: ", error)
+  }
+}
 
 const fetchEmployee = (id) => {
   return fetch(`/api/employees/${id}`).then((res) => res.json());
@@ -25,6 +35,7 @@ const EmployeeUpdater = () => {
   const [employee, setEmployee] = useState(null);
   const [updateLoading, setUpdateLoading] = useState(false);
   const [employeeLoading, setEmployeeLoading] = useState(true);
+  const [companyList, setCompanyList] = useState([]);
 
   useEffect(() => {
     setEmployeeLoading(true);
@@ -33,7 +44,14 @@ const EmployeeUpdater = () => {
         setEmployee(employee);
         setEmployeeLoading(false);
       });
+
+    fetchCompanies()
+    .then((list) => {
+       setCompanyList(list);
+     });
   }, [id]);
+
+
 
   const handleUpdateEmployee = (employee) => {
     setUpdateLoading(true);
@@ -54,6 +72,7 @@ const EmployeeUpdater = () => {
       onSave={handleUpdateEmployee}
       disabled={updateLoading}
       onCancel={() => navigate("/")}
+      companyList={companyList}
     />
   );
 };

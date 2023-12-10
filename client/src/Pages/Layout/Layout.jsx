@@ -22,7 +22,7 @@ const Layout = () => {
 
           </li>
           <li>
-            <Link to="/company/create">
+            <Link to="/company">
               <button type="button">
                 Create Company
               </button>

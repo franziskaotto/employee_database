@@ -3,10 +3,7 @@ const router = express.Router();
 const EmployeeModel = require("../db/employee.model");
 
 router.get("/", async (req, res) => {
-  const employees = await EmployeeModel
-  .find()
-  .sort({ created: "desc" })
-  .populate("company");
+  const employees = await EmployeeModel.find().sort({ created: "desc" })
   console.log("get")
   return res.json(employees);
 });
@@ -80,7 +77,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/update/:id", async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
   try {
     const employee = await EmployeeModel.findOneAndUpdate(
       { _id: req.params.id },

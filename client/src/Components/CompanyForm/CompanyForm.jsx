@@ -4,13 +4,14 @@ const CompanyForm = ({ onSave, onCancel }) => {
   const [newCompany, setNewCompany] = useState("");
 
   const onSubmit = (e) => {
-    e.prevent.default();
+    e.preventDefault();
+    setNewCompany("")
 
     return onSave({
-      name: newCompany,
-    });
+      name: newCompany
+    })
+    
   };
-  console.log(newCompany);
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -23,7 +24,7 @@ const CompanyForm = ({ onSave, onCancel }) => {
       </div>
       <div className="buttons">
         <button type="submit">create company</button>
-        <button type="button" onClick={onCancel}>
+        <button type="submit" onClick={onCancel}>
           Cancel
         </button>
       </div>

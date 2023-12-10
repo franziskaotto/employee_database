@@ -2,47 +2,17 @@ import { useEffect, useState } from "react";
 import Loading from "../Loading";
 
 
-const fetchCompanies = async () => {
-  try {
-    const response = await fetch("http//127.0.0.1:3000/api/companies")
-    const data = await response.json()
-    return data;
-  } catch (error) {
-    console.log("error fetching Companies: ", error)
-  }
-}
 
-const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
+
+const EmployeeForm = ({ onSave, disabled, employee, onCancel, companyList}) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
-  const [companiesList, setCompaniesList] = useState([])
-  const [company, setCompany] = useState(employee.company?? "")
+  const [company, setCompany] = useState(employee?.company ?? "");
 
-
- const onSubmit = (e) => {
-   e.preventDefault();
-   const formData = new FormData(e.target);
-   const entries = [...formData.entries()];
-
-   const company = entries.reduce((accumulator, entry) => {
-     const [key, value] = entry;
-     accumulator[key] = value;
-     return accumulator;
-   }, {});
-   return onSave(company);
- };
-
-
-  useEffect(() => {
-    fetchCompanies().then((list) => {
-      setCompaniesList(list)
-    })
-  }, [])
-
+  console.log(company)
   const onSubmit = (e) => {
     e.preventDefault();
-
     if (employee) {
       return onSave({
         ...employee,
@@ -60,18 +30,6 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       company,
     });
   };
-
-  const handleCompanyChange = (e) => {
-    const selectedCompanyName = e.target.value;
-    const selectedCompanyObj = companiesList.find((entry) => entry.name === selectedCompanyName)
-
-    if (selectedCompanyObj) {
-      setCompany(selectedCompanyObj._id);
-    } else {
-      throw new Error ("failed to find company");
-    }
-
-  }
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -105,12 +63,18 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         />
       </div>
       <div className="control">
-        <label htmlFor="control">Previous Company:</label>
+        <label htmlFor="company">Company:</label>
         <select
-          value={companiesList.find((comp) => comp._id === company)?.name}
-          onChange={handleCompanyChange}
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          name="company"
+          id="company"
         >
-
+          {companyList.map((comp) => (
+            <option key={comp._id} value={comp.name}>
+              {comp.name}
+            </option>
+          ))}
         </select>
       </div>
 

@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         element: <EmployeeCreator />,
       },
       {
-        path: "/update/:id",
+        path: "/:id",
         element: <EmployeeUpdater />,
       },
       {
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
         element: <EmployeeSortABC />
       },
       {
-        path: "/company/create",
+        path: "/company",
         element: <CompanyCreator />
       }
     ],

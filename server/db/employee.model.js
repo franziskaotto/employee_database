@@ -7,10 +7,7 @@ const EmployeeSchema = new Schema({
   name: String,
   level: String,
   position: String,
-  company: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Company",
-  },
+  company: [String],
   created: {
     type: Date,
     default: Date.now,
