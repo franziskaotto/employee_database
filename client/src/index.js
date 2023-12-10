@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         element: <EmployeeCreator />,
       },
       {
-        path: "/update/:id",
+        path: "/:id",
         element: <EmployeeUpdater />,
       },
       {

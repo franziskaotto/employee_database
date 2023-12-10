@@ -79,7 +79,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/update/:id", async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
   try {
     const employee = await EmployeeModel.findOneAndUpdate(
       { _id: req.params.id },
