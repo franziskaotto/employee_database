@@ -15,9 +15,9 @@ const fetchWorklog = async (id) => {
 
 
 const Worklog = () => {
-  
   const { id } = useParams();
   const [worklogData, setWorklogData] = useState([])
+  
 
   useEffect(() => {
     fetchWorklog(id).then((data) => setWorklogData(data))
@@ -34,7 +34,6 @@ const Worklog = () => {
       <tbody>
         {worklogData.map((entry) => (
           <tr key={entry._id}>
-
             <td>{entry.hours}</td>
             <td>{entry.label}</td>
           </tr>

@@ -1,20 +1,15 @@
 import { useState } from "react";
-import Loading from "../Loading";
 
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
-  //const [loading, setLoading] = useState(true);
   const [hours, setHours] = useState(0)
   const [label, setLabel] = useState("")
 
 
-  // if (loading) {
-  //   return <Loading />;
-  // }
-
+ 
 
   const onSubmit = (e) => {
     e.preventDefault();
