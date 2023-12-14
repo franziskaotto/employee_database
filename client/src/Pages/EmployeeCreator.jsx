@@ -12,6 +12,8 @@ const createEmployee = (employee) => {
   }).then((res) => res.json());
 };
 
+
+
 const EmployeeCreator = () => {
   const navigate = useNavigate();
 

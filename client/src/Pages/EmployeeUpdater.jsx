@@ -28,6 +28,15 @@ const fetchEmployee = async (id) => {
   }
   
 };
+const fetchCompanies = async () => {
+  try {
+    const res = await fetch("api/company");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const EmployeeUpdater = () => {
   const { id } = useParams();
@@ -36,6 +45,7 @@ const EmployeeUpdater = () => {
   const [employee, setEmployee] = useState(null);
   const [updateLoading, setUpdateLoading] = useState(false);
   const [employeeLoading, setEmployeeLoading] = useState(true);
+  const [companyList, setCompanyList] = useState([])
 
   useEffect(() => {
     setEmployeeLoading(true);
@@ -44,6 +54,11 @@ const EmployeeUpdater = () => {
         setEmployee(employee);
         setEmployeeLoading(false);
       });
+
+    fetchCompanies()
+    .then((list) => {
+      setCompanyList(list)
+    })
   }, [id]);
 
   const handleUpdateEmployee = (employee) => {
@@ -65,6 +80,9 @@ const EmployeeUpdater = () => {
       onSave={handleUpdateEmployee}
       disabled={updateLoading}
       onCancel={() => navigate("/")}
+      companyList={companyList}
+
+      
     />
   );
 };
