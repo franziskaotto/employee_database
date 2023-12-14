@@ -4,14 +4,22 @@ import { useNavigate, useParams } from "react-router-dom";
 import EmployeeForm from "../Components/EmployeeForm";
 import Loading from "../Components/Loading";
 
-const updateEmployee = (employee) => {
-  return fetch(`/api/employees/${employee._id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(employee),
-  }).then((res) => res.json());
+const updateEmployee = async (employee) => {
+  console.log(employee)
+  try {
+    const response = await fetch(`/api/employees/${employee._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(employee),
+    })
+    const data = await response.json();
+    return data
+    
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 const fetchEmployee = async (id) => {
