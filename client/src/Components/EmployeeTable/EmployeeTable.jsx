@@ -74,6 +74,9 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                   <input type="checkbox" id="option-1" />
                 </td>
                 <td>
+                  <Link to={`/employees/worklog/${employee._id}`}>
+                    <button type="button">Worklog</button>
+                  </Link>
                   <Link to={`/${employee._id}`}>
                     <button type="button">Update</button>
                   </Link>
