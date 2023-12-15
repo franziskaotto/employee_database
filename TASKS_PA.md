@@ -1,7 +1,7 @@
 Here are the corrected and refined versions of the exam tasks:
 
 ## Task 1:
-
+-newSchema
 - Enhance the storage/data model by incorporating a 'Company' object. This object should minimally store the company's name as a string.
 - Pre-populate the database with 3-4 companies, provided as JSON data.
 - Implement functionality to create new companies via a form accessible from the frontend.
@@ -10,7 +10,7 @@ Here are the corrected and refined versions of the exam tasks:
 - Ensure that this additional information (company association) is persistently saved in the database upon form submission.
 
 ## Task 2:
-
+-newSchema
 - Modify the database to accommodate a “positions” document model. Each position should include a name, a salary, and an auto-generated MongoDB ID. Use the provided JSON structure for reference.
 ```json
 [
@@ -28,10 +28,10 @@ Here are the corrected and refined versions of the exam tasks:
 - Update the 'populate.js' file to include these positions in the MongoDB.
 - Create a new page in the React frontend for displaying the stored positions.
 - Modify employee forms, replacing the position text field with a dropdown menu for position selection.
-- The employee document d*oesn't need to store the salary, just the position name. Optionally, the entire position document can be included in the employee document.
+- The employee document doesn't need to store the salary, just the position name. Optionally, the entire position document can be included in the employee document.
 
 ## Task 3:
-
+X
 - Introduce a work log array in the employee documents, comprising two fields: working hours (number) and a work label (string), e.g., acting, resting, filling the worklog.
 - Update 'populate.js' to initialize an empty work log array for each employee.
 - Develop a page for adding work log entries for a chosen employee. This can be a modification of an existing route or a new route.
@@ -39,7 +39,7 @@ Here are the corrected and refined versions of the exam tasks:
 
 
 ## Task 4:
-
+X
 - Alter the 'level' field in the employee document to accept numerical values instead of strings. The levels are represented as follows: `{ "Junior": 1, "Medior": 2, "Senior": 3, "Expert": 4, "Godlike": 5 }`.
 - Revise the 'populate.js' file to generate levels as numbers, not strings.
 - Enhance the EmployeesList on the frontend with a sorting feature to organize employees by their level.
@@ -47,7 +47,6 @@ Here are the corrected and refined versions of the exam tasks:
 - Note: Modifying and creating employee forms with the new number-based level field is not required for this task.
 
 ## Task 5:
-
 - Add a 'Notes' button to each employee's profile. Clicking this button should redirect to a new route: “/employee/:employeeId/notes/”. This route will display all notes associated with a specific employee, where each note is text-based.
 - Ensure the employee document in the database includes a field to store notes.
 - Manually add a note to the database using a tool like MongoDB Compass.

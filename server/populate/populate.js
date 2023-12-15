@@ -6,7 +6,7 @@ const names = require("./names.json");
 const levels = require("./levels.json");
 const positions = require("./positions.json");
 const EmployeeModel = require("../db/employee.model");
-
+const PositionModel = require("../db/position.model")
 const mongoUrl = process.env.MONGO_URL;
 
 if (!mongoUrl) {
@@ -17,14 +17,30 @@ if (!mongoUrl) {
 
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
+const populatePositions = async () => {
+  await PositionModel.deleteMany({});
+  await PositionModel.create(...positions);
+  console.log("PositionModel created");
+}
+
+
 const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
 
-  const employees = names.map((name) => ({
-    name,
-    level: pick(levels),
-    position: pick(positions),
-  }));
+  const positionsData = await PositionModel.find()
+console.log(positionsData)
+  const employees = names.map((name) => {
+
+    const randomPosition = pick(positionsData)
+
+    return {
+      name,
+      level: pick(levels),
+      position: randomPosition.name,
+      salary: randomPosition.salary
+
+    }
+  });
 
   await EmployeeModel.create(...employees);
   console.log("Employees created");
@@ -32,7 +48,7 @@ const populateEmployees = async () => {
 
 const main = async () => {
   await mongoose.connect(mongoUrl);
-
+  await populatePositions();
   await populateEmployees();
 
   await mongoose.disconnect();

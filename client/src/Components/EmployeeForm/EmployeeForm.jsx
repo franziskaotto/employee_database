@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../Loading";
 
+
+const fetchPositions = async () => {
+  console.log("here");
+  try {
+    const response = await fetch(`/api/positions/`);
+    console.log(response);
+    if (!response) {
+      throw new Error("Error fetching update ID");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("Error fetching update ID: ", error);
+  }
+};
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
 
+  const [positionsData, setPositionsData] = useState([]);
 
-
+  useEffect(() => {
+    fetchPositions().then((positions) => {
+      setPositionsData(positions);
+      console.log(positions);
+    });
+  }, []);                                                                                                                                 
   
 
   const onSubmit = (e) => {
@@ -54,12 +75,19 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
 
       <div className="control">
         <label htmlFor="position">Position:</label>
-        <input
+        <select
           value={position}
           onChange={(e) => setPosition(e.target.value)}
           name="position"
           id="position"
-        />
+        >
+          {positionsData.map((pos) => 
+            <option key={pos._id} value={pos.name}>
+              {pos.name}
+            </option>
+          
+          )}
+        </select>
       </div>
 
       <div className="buttons">

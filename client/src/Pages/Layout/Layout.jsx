@@ -18,8 +18,14 @@ const Layout = () => {
       <nav>
         <ul>
           <li className="grow">
-            <Link to="/" onClick={() => setClick("employee")}>Employees</Link>
-
+            <Link to="/" onClick={() => setClick("employee")}>
+              Employees
+            </Link>
+          </li>
+          <li>
+            <Link to="/positions">
+              <button type="button">positions</button>
+            </Link>
           </li>
           <li>
             <Link to="/equipment">
