@@ -10,6 +10,36 @@ router.get("/", async (req, res) => {
   return res.json(employees);
 });
 
+router.get("/:employeeId/notes", async (req, res) => {
+  try {
+    const id = req.params.employeeId;
+    const employee = await EmployeeModel.findById(id);
+    return res.json(employee)
+  } catch (error) {
+    console.log(error)
+    
+  }
+});
+
+router.patch("/:employeeId/notes", async (req, res) => {
+  try {
+    const newNote = req.body.note;
+    const id = req.params.employeeId;
+
+    let updatedEmployee = await EmployeeModel.findById(id)
+    updatedEmployee.note.push(newNote);
+    await updatedEmployee.save();
+    res
+      
+      .json(updatedEmployee);
+
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+
 router.get("/sort/:sorted", async (req, res) => {
   try {
     const sortedBy = req.params.sorted;
@@ -47,9 +77,7 @@ router.get("/search", async (req, res) => {
       queryObj[key] = { $regex: `^${queryObj[key]}`, $options: "i" };
     }
 
-    //TODO: einfache if abfrage im queryObject, zb if key = asc => mach nach asc, if = desc => mach nach dec
-
-    //const query = EmployeeModel.find({ level : { $regex: queryObj, $options: "i" } });
+  
     const query = EmployeeModel.find(queryObj);
     const data = await query;
 
