@@ -20,19 +20,36 @@ const deleteEmployee = (id) => {
 
 const serverPath = "http://localhost:3000/api";
 
-const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
-  try {
-    const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
-    console.log(response);
-    console.log(searchedLevel);
-    const data = await response.json();
-    console.log(data);
 
-    setEmployees(data);
-  } catch (err) {
-    console.error("Error fetching levels:", err);
+
+const fetchFilteredEmployees = async (searchInput, sortOrder, setEmployees) => {
+  try {
+    const params = new URLSearchParams();
+    params.append("level", searchInput);
+    params.append("sortOrder", sortOrder);
+
+    const response = await fetch(`${serverPath}/level?${params.toString()}`);
+    const data = await response.json() 
+    setEmployees(data)
+
+    } catch (error) {
+    console.log(error)
   }
+
 };
+// const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
+//   try {
+//     const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
+//     console.log(response);
+//     console.log(searchedLevel);
+//     const data = await response.json();
+//     console.log(data);
+
+//     setEmployees(data);
+//   } catch (err) {
+//     console.error("Error fetching levels:", err);
+//   }
+// };
 
 
 
@@ -40,8 +57,8 @@ const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEm
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
-  const [level, setLevel] = useState("")
-  const [position, setPosition]  = useState("");
+  const [level, setLevel] = useState("");
+  const [sorted, setSorted] = useState("")
 
 
   
@@ -62,19 +79,20 @@ const EmployeeList = () => {
       })
   }, []);
 
- console.log("inside EmployeeList")
 
 
-  const searchEmployeeByLevel = (searchInput) =>{
+  const searchEmployeeByLevel = async (searchInput) =>{
     setLevel(searchInput)
-    getEmpolyeesLeveluPosition(searchInput, position, setEmployees)
+    await fetchFilteredEmployees(searchInput, sorted, setEmployees)
+    //getEmpolyeesLeveluPosition(searchInput, setEmployees)
   }
 
-  const searchEmployeeByPosition = (searchInput) => {
-    setPosition(searchInput)
-    getEmpolyeesLeveluPosition(level, searchInput, setEmployees);
-  }
+  const handleSortByABC = async (sortedValue) => {
+    const sortOrder = sortedValue
+    await fetchFilteredEmployees(level, sortOrder, setEmployees);
+    setSorted(sortedValue)
 
+  }
 
 
   if (loading) {
@@ -83,7 +101,12 @@ const EmployeeList = () => {
 
   return (
     <>
-      <EmployeeTable employees={employees} onDelete={handleDelete} setEmployees={setEmployees} searchEmployeeByLevel={searchEmployeeByLevel} searchEmployeeByPosition={searchEmployeeByPosition} />;
+      <EmployeeTable 
+      employees={employees} 
+      onDelete={handleDelete} 
+      setEmployees={setEmployees} 
+      searchEmployeeByLevel={searchEmployeeByLevel}
+      handleSortByABC={handleSortByABC}/>;
     </>
 
   )
