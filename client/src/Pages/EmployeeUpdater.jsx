@@ -22,6 +22,22 @@ const updateEmployee = async (employee) => {
   }
 };
 
+
+
+const fetchCompanies = async () => {
+  try {
+    const response = await fetch(`/api/company`);
+    
+    if (!response) {
+      throw new Error("Error fetching update ID");
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log("Error fetching company: ", error)
+  }
+  
+};
 const fetchEmployee = async (id) => {
   try {
     const response = await fetch(`/api/employees/${id}`);
@@ -45,6 +61,8 @@ const EmployeeUpdater = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [employeeLoading, setEmployeeLoading] = useState(true);
 
+  const [companyList, setCompanyList] = useState([])
+
   useEffect(() => {
     setEmployeeLoading(true);
     fetchEmployee(id)
@@ -52,6 +70,11 @@ const EmployeeUpdater = () => {
         setEmployee(employee);
         setEmployeeLoading(false);
       });
+
+    fetchCompanies()
+    .then((list) => {
+      setCompanyList(list)
+    })
   }, [id]);
 
   const handleUpdateEmployee = (employee) => {
@@ -73,6 +96,7 @@ const EmployeeUpdater = () => {
       onSave={handleUpdateEmployee}
       disabled={updateLoading}
       onCancel={() => navigate("/")}
+      companyList={companyList}
     />
   );
 };

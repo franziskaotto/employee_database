@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Loading from "../Loading";
+//company
 
-
-const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
+const EmployeeForm = ({ onSave, disabled, employee, onCancel, companyList }) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
+  const [company, setCompany] = useState(employee?.company ?? "");
 
 
-
+  console.log(companyList)
   
 
   const onSubmit = (e) => {
@@ -20,6 +21,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         name,
         level,
         position,
+        company,
       });
     }
 
@@ -27,6 +29,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       name,
       level,
       position,
+      company,
     });
   };
 
@@ -60,6 +63,23 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           name="position"
           id="position"
         />
+      </div>
+
+
+      <div className="control">
+        <label htmlFor="company">company:</label>
+        <select
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          name="company"
+          id="company"
+        >
+          {companyList.map((comp) => (
+            <option key={comp._id} value={comp.name}>
+              {comp.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="buttons">
