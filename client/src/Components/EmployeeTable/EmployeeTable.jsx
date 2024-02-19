@@ -3,39 +3,39 @@ import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
 
-const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmployeeByPosition }) => {
+const EmployeeTable = ({
+  employees,
+  onDelete,
+  searchEmployeeByLevel,
+  searchEmployeeByPosition,
+}) => {
+  console.log(employees);
+  console.log(searchEmployeeByLevel, "byLEVEL");
+  console.log(searchEmployeeByPosition, "ByPostion");
 
-  console.log(employees)
-  console.log(searchEmployeeByLevel, "byLEVEL")
-  console.log(searchEmployeeByPosition, "ByPostion")
+  const [searchedLevel, setSearchedLevel] = useState("");
+  const [searchedPosition, setSearchedPosition] = useState("");
 
-  const [searchedLevel, setSearchedLevel] = useState('');
-  const [searchedPosition, setSearchedPosition]= useState('');
-
-  
   const handleSearchLevel = (e) => {
     setSearchedLevel(e.target.value);
     searchEmployeeByLevel(e.target.value);
   };
-  
+
   const handleSearchPosition = (e) => {
     setSearchedPosition(e.target.value);
 
     searchEmployeeByPosition(e.target.value);
   };
 
-  
   return (
     <div className="EmployeeTable">
       <table>
         <thead>
-         
           <tr>
             <th>Name</th>
             <th>
               Level
               <form type="submit">
-
                 <input
                   type="text"
                   placeholder="search"
@@ -43,7 +43,7 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                 />
               </form>
               <Link to={`/employees/sort/level`}>
-                <button type="button" >ABC^</button>
+                <button type="button">ABC^</button>
               </Link>
             </th>
             <th>
