@@ -6,7 +6,7 @@ const names = require("./names.json");
 const levels = require("./levels.json");
 const positions = require("./positions.json");
 const EmployeeModel = require("../db/employee.model");
-const LevelModel = require("../db/level.model")
+const LevelModel = require("../db/level.model");
 const mongoUrl = process.env.MONGO_URL;
 
 if (!mongoUrl) {
@@ -27,6 +27,8 @@ const populateLevel = async () => {
   const createdLevels = await LevelModel.create(...allLevels);
   console.log("level created");
 }
+
+
 const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
 

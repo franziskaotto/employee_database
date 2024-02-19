@@ -70,7 +70,6 @@ const EmployeeList = () => {
   const searchEmployeeByLevel = async (searchInput) =>{
     setLevel(searchInput)
     await fetchFilteredEmployees(searchInput, sorted, setEmployees)
-    //getEmpolyeesLeveluPosition(searchInput, setEmployees)
   }
 
   const handleSortByABC = async (sortedValue) => {
