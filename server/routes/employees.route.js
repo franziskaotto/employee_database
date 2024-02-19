@@ -28,9 +28,7 @@ router.patch("/:employeeId/notes", async (req, res) => {
     let updatedEmployee = await EmployeeModel.findById(id)
     updatedEmployee.note.push(newNote);
     await updatedEmployee.save();
-    res
-      
-      .json(updatedEmployee);
+    res.json(updatedEmployee);
 
 
   } catch (error) {

@@ -19,7 +19,7 @@ const postNewNote = async (newNote, id) => {
   try {
     console.log(newNote)
     const response = await fetch(`${serverPath}/${id}/notes`, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
