@@ -37,20 +37,6 @@ const fetchFilteredEmployees = async (searchInput, sortOrder, setEmployees) => {
   }
 
 };
-// const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
-//   try {
-//     const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
-//     console.log(response);
-//     console.log(searchedLevel);
-//     const data = await response.json();
-//     console.log(data);
-
-//     setEmployees(data);
-//   } catch (err) {
-//     console.error("Error fetching levels:", err);
-//   }
-// };
-
 
 
 
