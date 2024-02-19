@@ -20,11 +20,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//TODO: Update wegeben
 
 router.patch("/update/:id", async (req, res) => {
-  console.log("patch over try");
-
   try {
     const updatedEquipment = await EquipmentModel.findOneAndUpdate(
       { _id: req.params.id },
@@ -46,7 +43,6 @@ router.patch("/update/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const equipment = req.body;
-
   try {
     const data = await EquipmentModel.create(equipment);
     return res.json(data);

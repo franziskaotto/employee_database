@@ -5,10 +5,6 @@ import "./EmployeeTable.css";
 
 const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmployeeByPosition }) => {
 
-  console.log(employees)
-  console.log(searchEmployeeByLevel, "byLEVEL")
-  console.log(searchEmployeeByPosition, "ByPostion")
-
   const [searchedLevel, setSearchedLevel] = useState('');
   const [searchedPosition, setSearchedPosition]= useState('');
 
@@ -57,7 +53,10 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                 <button type="button">ABC^</button>
               </Link>
             </th>
-            <th>Present</th>
+            <th>
+              Worklog
+            </th>
+          
 
             <th />
           </tr>
@@ -71,7 +70,8 @@ const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmplo
                 <td>{employee.level}</td>
                 <td>{employee.position}</td>
                 <td>
-                  <input type="checkbox" id="option-1" />
+                  
+                  
                 </td>
                 <td>
                   <Link to={`/employees/worklog/${employee._id}`}>

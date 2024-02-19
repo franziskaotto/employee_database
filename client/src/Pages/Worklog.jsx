@@ -5,7 +5,6 @@ const serverPath = "http://localhost:3000/api/employees";
 
 const fetchWorklog = async (id) => {
   try {
-    console.log(id, "ID HERE");
     const response = await fetch(`${serverPath}/worklog/${id}`);
     const data = await response.json();
     return data;
@@ -20,7 +19,6 @@ const Worklog = () => {
   const { id }  = useParams()
   const [worklogData, setWorklogData] = useState([])
 
-  console.log(id)
 
   useEffect(() => {
     fetchWorklog(id).then((data) => setWorklogData(data))
@@ -38,11 +36,12 @@ const Worklog = () => {
 
         <tbody>
           <>
+         
+           
             {worklogData.map((log) => (
               <tr key={log._id}>
                 <td>{log.hours}</td>
                 <td>{log.label}</td>
-               
               </tr>
             ))}
           </>
