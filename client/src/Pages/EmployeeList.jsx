@@ -34,17 +34,12 @@ const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEm
   }
 };
 
-
-
-
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
   const [level, setLevel] = useState("")
   const [position, setPosition]  = useState("");
 
-
-  
 
   const handleDelete = (id) => {
     deleteEmployee(id);
