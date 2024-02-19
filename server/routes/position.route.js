@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
     const positions = await PositionModel.find();
     return res.json(positions);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({error: "internal Server Error"});
   }
 });
 

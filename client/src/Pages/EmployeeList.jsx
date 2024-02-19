@@ -23,10 +23,7 @@ const serverPath = "http://localhost:3000/api";
 const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEmployees) => {
   try {
     const response = await fetch(`${serverPath}/employees/search?level=${searchedLevel}&position=${searchedPosition}`);
-    console.log(response);
-    console.log(searchedLevel);
     const data = await response.json();
-    console.log(data);
 
     setEmployees(data);
   } catch (err) {
@@ -34,23 +31,6 @@ const getEmpolyeesLeveluPosition = async (searchedLevel, searchedPosition, setEm
   }
 };
 
-// const getEmpolyeesPosition = async (
-//   searchedPosition,
-//   setEmployeeList,
-  
-// ) => {
-//   try {
-//     const response = await fetch(`${serverPath}/search?position=${searchedPosition}`
-//     );
-//     console.log(response);
-//     console.log(searchedPosition);
-//     const data = await response.json();
-//     console.log(data);
-//     setEmployeeList(data);
-//   } catch (err) {
-//     console.error("Error fetching levels:", err);
-//   }
-// };
 
 
 
@@ -80,7 +60,6 @@ const EmployeeList = () => {
       })
   }, []);
 
- console.log("inside EmployeeList")
 
 
   const searchEmployeeByLevel = (searchInput) =>{

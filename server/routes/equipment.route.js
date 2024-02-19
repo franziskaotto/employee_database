@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     const equipment = await EquipmentModel.find();
     return res.json(equipment);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -16,14 +16,13 @@ router.get("/:id", async (req, res) => {
     const equipment = await EquipmentModel.findById(req.params.id);
     return res.json(equipment);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-//TODO: Update wegeben
+
 
 router.patch("/update/:id", async (req, res) => {
-  console.log("patch over try");
 
   try {
     const updatedEquipment = await EquipmentModel.findOneAndUpdate(
@@ -51,7 +50,7 @@ router.post("/", async (req, res) => {
     const data = await EquipmentModel.create(equipment);
     return res.json(data);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -61,7 +60,7 @@ router.delete("/:id", async (req, res) => {
     const deleted = await equipment.delete();
     return res.json(deleted);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

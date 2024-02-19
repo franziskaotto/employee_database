@@ -5,7 +5,6 @@ import EmployeeForm from "../Components/EmployeeForm";
 import Loading from "../Components/Loading";
 
 const updateEmployee = async (employee) => {
-  console.log(employee)
   try {
     const response = await fetch(`/api/employees/${employee._id}`, {
       method: "PATCH",

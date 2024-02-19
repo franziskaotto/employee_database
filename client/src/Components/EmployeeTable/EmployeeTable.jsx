@@ -5,9 +5,6 @@ import "./EmployeeTable.css";
 
 const EmployeeTable = ({ employees, onDelete, searchEmployeeByLevel, searchEmployeeByPosition }) => {
 
-  console.log(employees)
-  console.log(searchEmployeeByLevel, "byLEVEL")
-  console.log(searchEmployeeByPosition, "ByPostion")
 
   const [searchedLevel, setSearchedLevel] = useState('');
   const [searchedPosition, setSearchedPosition]= useState('');

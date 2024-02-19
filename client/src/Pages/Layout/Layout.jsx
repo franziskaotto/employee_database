@@ -8,7 +8,6 @@ const Layout = () => {
 
   const handleClick = () => {
     setClick("equipment")
-    console.log(click)
 
   }
 

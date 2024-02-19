@@ -6,7 +6,6 @@ const fetchPositions = async () => {
   console.log("here");
   try {
     const response = await fetch(`/api/positions/`);
-    console.log(response);
     if (!response) {
       throw new Error("Error fetching update ID");
     }
@@ -27,7 +26,6 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   useEffect(() => {
     fetchPositions().then((positions) => {
       setPositionsData(positions);
-      console.log(positions);
     });
   }, []);                                                                                                                                 
   

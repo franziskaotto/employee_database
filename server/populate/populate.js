@@ -28,7 +28,6 @@ const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
 
   const positionsData = await PositionModel.find()
-console.log(positionsData)
   const employees = names.map((name) => {
 
     const randomPosition = pick(positionsData)

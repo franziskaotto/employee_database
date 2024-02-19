@@ -28,7 +28,6 @@ router.get("/sort/:sorted", async (req, res) => {
 router.get("/superheroes", async (req, res, next) => {
   try {
     const superheroes = await EmployeeModel.find({ position: "Superhero" });
-    console.log(superheroes);
     return res.json(superheroes);
   } catch (err) {
     console.log(err);
@@ -39,7 +38,6 @@ router.get("/superheroes", async (req, res, next) => {
 router.get("/search", async (req, res) => {
   try {
     const queryObj = { ...req.query };
-    console.log(queryObj);
     const excludedFields = ["name", "created"];
     excludedFields.forEach((el) => delete queryObj[el]);
 
@@ -47,9 +45,7 @@ router.get("/search", async (req, res) => {
       queryObj[key] = { $regex: `^${queryObj[key]}`, $options: "i" };
     }
 
-    //TODO: einfache if abfrage im queryObject, zb if key = asc => mach nach asc, if = desc => mach nach dec
 
-    //const query = EmployeeModel.find({ level : { $regex: queryObj, $options: "i" } });
     const query = EmployeeModel.find(queryObj);
     const data = await query;
 
@@ -64,7 +60,7 @@ router.get("/search", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
-  const employee = await EmployeeModel.findById(req.params.id);
+  const employee = await EmployeeModel.findById(id);
   return res.json(employee);
 });
 
